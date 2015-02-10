@@ -29,6 +29,9 @@ include('layout/header.php');
 
 </div><!-- /.container -->
 
-<?php include('layout/script.php'); ?>
+<?php
+include('layout/footer.php');
+include('layout/script.php'); ?>
+
 </body>
 </html>

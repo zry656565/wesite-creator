@@ -1,5 +1,4 @@
-<?php
-/**
- * User: Jerry
- * Date: 15/2/10
- */
+<hr>
+<div class="footer">
+	<p>Copyright &copy; Women Idea 2015</p>
+</div>
