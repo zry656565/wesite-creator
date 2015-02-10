@@ -1,53 +1,34 @@
-<?php
-/**
- * User: Jerry
- * Date: 15/2/7
- */
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-require_once('model/wesiteModel.php');
+<?php include('layout/head.php'); ?>
 
-$page = new Page();
-$page->load(1);
-
-$data = [
-	'title' => $page->pageName,
-	'music' => $page->bgm,
-	'slides' => $page->slides(),
-];
-?>
-
-<!doctype html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<title><?= $page->pageName ?></title>
-	<meta name="viewport" content="width=device-width, target-densityDpi=medium-dpi, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="format-detection" content="telephone=no">
-	<link rel="stylesheet" href="assets/library/idangerous.swiper/idangerous.swiper.css">
-	<link rel="stylesheet" href="assets/stylesheet/wesite.css">
-	<!-- script -->
-	<script src="assets/library/jquery/jquery-1.11.2.min.js"></script>
-	<script src="assets/library/idangerous.swiper/idangerous.swiper.js"></script>
-	<script src="assets/javascript/wesite.js"></script>
-</head>
 <body>
 
-<div class="swiper-container">
-	<div class="swiper-wrapper">
-		<?php
-		foreach ($page->slides() as $slide) { ?>
-			<div class="swiper-slide">
-				<?= $slide->title ?>
-				<?= $slide->content ?>
-				<?= $slide->footer ?>
-			</div>
-		<?php
-		}
-		?>
-	</div>
-</div>
+<?php
+$currentNav = 'home';
+include('layout/header.php');
+?>
 
+<div class="container">
+
+	<div class="head-info col-lg-12 col-md-12">
+		<h1>WomenIdea微信网页生成器</h1>
+		<p class="lead">你可以点击下面已经生成好的页面进行查看/修改，或者重新创建一个新的页面。</p>
+		<a href="/create.php"><button type="button" class="btn btn-success btn-lg create-btn">创建新的页面</button></a>
+	</div>
+
+	<?php
+	$arr = [1,2,3,4,5,6,7,8];
+	foreach ($arr as $a) { ?>
+		<div class="col-lg-3 col-md-3">
+			<div class="page"><?= $a ?></div>
+		</div>
+	<?php
+	} ?>
+
+</div><!-- /.container -->
+
+<?php include('layout/script.php'); ?>
 </body>
 </html>
