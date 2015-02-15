@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
-	<link rel="stylesheet" href="../assets/stylesheet/wesite.css">
+	<link rel="stylesheet" href="../assets/stylesheet/show.css">
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
