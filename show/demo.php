@@ -7,12 +7,6 @@
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
 	<link rel="stylesheet" href="../assets/stylesheet/wesite.css">
-	<style>
-		.background {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
@@ -30,6 +24,7 @@
 		foreach ($data['slides'] as $slide) { ?>
 			<div class="swiper-slide">
 				<img class="background" src="<?= $slide['background'] ?>" />
+				<img class="arrow" src="../assets/images/arrow.gif" />
 			</div>
 		<?php
 		}
