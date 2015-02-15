@@ -3,22 +3,23 @@
 $demo = true;
 
 $pageName = 'DEMO PAGE';
+$assetRoot = 'http://women-image.b0.upaiyun.com/demo/1/';
 $data = array(
 	'slides' => array(
 		array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/1.jpg',
+			'background' => $assetRoot . '1.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/3.jpg',
+			'background' => $assetRoot . '3.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/5.jpg',
+			'background' => $assetRoot . '5.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/25k.jpg',
+			'background' => $assetRoot . '25k.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/30min.jpg',
+			'background' => $assetRoot . '30min.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/30y.jpg',
+			'background' => $assetRoot . '30y.jpg',
 		), array(
-			'background' => 'http://women-image.b0.upaiyun.com/demo/1/80.jpg',
+			'background' => $assetRoot . '80.jpg',
 		),
 	)
 );
