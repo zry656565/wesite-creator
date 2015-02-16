@@ -17,6 +17,7 @@
 
 <div id="spinner"></div>
 <div id="loading-hover"></div>
+<audio id="music" src="//women-music.b0.upaiyun.com/demo/sunrise.mp3" autoplay controls loop></audio>
 
 <div class="swiper-container">
 	<div class="swiper-wrapper">
