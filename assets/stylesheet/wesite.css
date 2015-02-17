@@ -63,6 +63,10 @@ body {
 .config h2 {
   text-align: center;
 }
+.config textarea {
+  width: 100%;
+  height: 100px;
+}
 .iphone {
   width: 320px;
   height: 568px;

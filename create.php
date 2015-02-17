@@ -23,6 +23,16 @@ include('layout/header.php');
 
 	<div class="config col-lg-6 col-md-6">
 		<h2>配置</h2>
+		<h4>头部内容</h4>
+		<textarea name="header"></textarea>
+		<h4>中部内容</h4>
+		<textarea name="content"></textarea>
+		<h4>尾部内容</h4>
+		<textarea name="footer"></textarea>
+		<h4>背景图片</h4>
+		<input type="file" name="background"/>
+		<h4>背景音乐</h4>
+		<input type="file" name="music"/>
 		<button type="button" class="btn btn-success">完成</button>
 	</div>
 
