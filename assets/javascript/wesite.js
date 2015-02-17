@@ -32,6 +32,12 @@ $(function(){
         onImagesReady: function(swiper) {
             $('#loading-hover').hide();
             $('#spinner').hide();
+
+            //play music
+            var music = $("#music")[0];
+            if (music.paused) {
+                music.play();
+            }
         }
     });
 });
