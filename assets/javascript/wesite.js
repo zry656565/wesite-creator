@@ -35,9 +35,13 @@ $(function(){
 
             //play music
             var music = $("#music")[0];
-            if (music.paused) {
-                music.play();
-            }
+            var play = function() {
+                if (music.paused) {
+                    music.play();
+                }
+            };
+            $('body').on('touchstart', play);
+            play();
         }
     });
 });
