@@ -17,9 +17,9 @@
 
 <div id="spinner"></div>
 <div id="loading-hover"></div>
-<video id="music" controls="" autoplay="" loop>
-	<source src="//women-music.b0.upaiyun.com/demo/sunrise_little.mp3" type="audio/mpeg">
-</video>
+<audio id="music" preload="auto" autoplay loop>
+	<source src="<?= $music ?>" type="audio/mpeg">
+</audio>
 
 <div class="swiper-container">
 	<div class="swiper-wrapper">

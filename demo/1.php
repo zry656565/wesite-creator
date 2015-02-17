@@ -3,7 +3,8 @@
 $demo = true;
 
 $pageName = 'DEMO PAGE';
-$assetRoot = 'http://women-image.b0.upaiyun.com/demo/1/';
+$assetRoot = '//women-image.b0.upaiyun.com/demo/1/';
+$music = '//women-music.b0.upaiyun.com/demo/sunrise_little.mp3';
 $data = array(
 	'slides' => array(
 		array(
