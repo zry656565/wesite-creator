@@ -1,3 +1,5 @@
+/* hacking mixin
+ *============================*/
 html,
 body {
   width: 100%;
@@ -7,33 +9,6 @@ body {
 }
 body {
   padding-top: 50px;
-}
-#loading-hover {
-  opacity: 0.7;
-  background: #fff;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 100;
-}
-/* demo.php
- *============================*/
-.swiper-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-.background {
-  width: 100%;
-  height: 100%;
-}
-.arrow {
-  position: relative;
-  width: 19px;
-  left: 48%;
-  bottom: 50px;
 }
 /* ...
  *============================*/
@@ -62,6 +37,13 @@ body {
 }
 .config h2 {
   text-align: center;
+}
+.config input[type="file"] {
+  display: inline;
+}
+.config [name="description"] {
+  height: 60px;
+  vertical-align: top;
 }
 .config textarea {
   width: 100%;
