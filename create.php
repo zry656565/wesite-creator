@@ -31,8 +31,7 @@ include('layout/header.php');
 
 	<div class="preview col-lg-6 col-md-6">
 		<h2>预览图</h2>
-		<p>注意：预览图采用iPhone 5的尺寸，实际效果请在真机上查看。</p>
-		<button type="button" class="btn btn-info refresh">刷新</button>
+		<p>注意：预览图仅供参考，实际效果请在真机上查看。</p>
 		<div class="iphone">
 
 		</div>
@@ -52,13 +51,13 @@ include('layout/header.php');
 			<label for="bgm">背景音乐</label>
 			<input type="file" name="bgm">
 			<button class="btn btn-default btn-sm music-upload">上传</button>
-			<p class="help-block"></p>
+			<p class="help-block">为了让用户更快地加载出页面，请截取并压缩好背景音乐后再上传</p>
 		</div>
 		<div class="form-group">
 			<label for="default-background">背景图片</label>
 			<input type="file" name="default-background">
 			<button class="btn btn-default btn-sm background-upload">上传</button>
-			<p class="help-block"></p>
+			<p class="help-block">请上传宽高比为2:3左右的背景图片</p>
 		</div>
 <!--		<h4>头部内容</h4>-->
 <!--		<textarea name="header"></textarea>-->
