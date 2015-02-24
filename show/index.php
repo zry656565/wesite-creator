@@ -1,14 +1,18 @@
 <?php
-require_once('model/wesiteModel.php');
+require_once('../model/wesiteModel.php');
+
+if (!isset($_GET['id'])) {
+	include('../404.php');
+	return;
+}
 
 $page = new Page();
-$page->load(1);
+$page->load($_GET['id']);
 
-$data = [
-	'title' => $page->pageName,
-	'music' => $page->bgm,
-	'slides' => $page->slides(),
-];
+if (!$page->id) {
+	include('../404.php');
+	return;
+}
 ?>
 
 <!doctype html>
@@ -16,30 +20,36 @@ $data = [
 <head>
 	<meta charset="UTF-8">
 	<title><?= $page->pageName ?></title>
-	<meta name="viewport" content="width=device-width, target-densityDpi=medium-dpi, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
+	<meta name="description" content="<?= $page->description ?>">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
-	<link rel="stylesheet" href="../assets/stylesheet/wesite.css">
+	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.0.3">
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
-	<script src="../assets/javascript/wesite.js"></script>
+	<script src="../assets/library/spin/spin.js"></script>
+	<script src="../assets/javascript/wesite.js?v=1.0.3"></script>
 </head>
 <body>
+
+<div id="spinner"></div>
+<div id="loading-hover"></div>
+<audio id="music" preload="auto" autoplay loop>
+	<source src="<?= $page->bgm ?>" type="audio/mpeg">
+</audio>
 
 <div class="swiper-container">
 	<div class="swiper-wrapper">
 		<?php
-		foreach ($page->slides() as $slide) { ?>
+//		foreach ($data['slides'] as $slide) { ?>
 			<div class="swiper-slide">
-				<?= $slide->title ?>
-				<?= $slide->content ?>
-				<?= $slide->footer ?>
+				<img class="music-icon" src="../assets/images/music.png"/>
+				<img class="background" src="<?= $page->bg ?>" />
+				<img class="arrow" src="../assets/images/arrow.gif" />
 			</div>
 		<?php
-		}
+//		}
 		?>
 	</div>
 </div>
