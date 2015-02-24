@@ -6,7 +6,7 @@ class ImageConfig {
 		if ($type === 'image') {
 			$bucket = "women-image";
 			$secret = "MTWYHiC4ba6VVfz8GkAvruqDZ9s=";
-			$options = [
+			$options = array(
 				'bucket' => $bucket,
 				'expiration' => $expire,
 				'save-key' => "/{year}-{mon}/{filemd5}{.suffix}",
@@ -16,27 +16,27 @@ class ImageConfig {
 				'x-gmkerl-type' => 'fix_width',
 				'x-gmkerl-value' => '1024',
 				'x-gmkerl-rotate' => 'auto',
-			];
+			);
 		} else {
 			$bucket = "women-music";
 			$secret = "uBlL0wAOIHBuT1YIOkSKBxrEEyk=";
-			$options = [
+			$options = array(
 				'bucket' => $bucket,
 				'expiration' => $expire,
 				'save-key' => "/{year}-{mon}/{filemd5}{.suffix}",
 				'content-length-range' => '0,10485760',
-			];
+			);
 		}
 		$policy = base64_encode(json_encode($options));
 		$signature = md5($policy . '&' . $secret);
-		return [
+		return array(
 			'url' => 'http://v0.api.upyun.com/' . $bucket,
-			'params' => [
+			'params' => array(
 				'policy' => $policy,
 				'signature' => $signature,
-			],
+			),
 			'fileKey' => 'file',
 			'expire' => $expire,
-		];
+		);
 	}
 }
