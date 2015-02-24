@@ -42,6 +42,17 @@ $(function(){
             };
             $('body').on('touchstart', play);
             play();
+
+            //bind play / pause event
+            $('.music-icon').on('touchend', function() {
+                if (music.paused) {
+                    $('.music-icon').css('opacity', 1);
+                    music.play();
+                } else {
+                    $('.music-icon').css('opacity', 0.5);
+                    music.pause();
+                }
+            })
         }
     });
 });

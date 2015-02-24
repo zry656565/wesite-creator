@@ -26,6 +26,7 @@
 		<?php
 		foreach ($data['slides'] as $slide) { ?>
 			<div class="swiper-slide">
+				<img class="music-icon" src="../assets/images/music.png"/>
 				<img class="background" src="<?= $slide['background'] ?>" />
 				<img class="arrow" src="../assets/images/arrow.gif" />
 			</div>
