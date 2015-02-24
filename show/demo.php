@@ -12,7 +12,7 @@
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
-	<script src="../assets/javascript/wesite.js?v=1.0.3"></script>
+	<script src="../assets/javascript/wesite.js?v=1.0.4"></script>
 </head>
 <body>
 
