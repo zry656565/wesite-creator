@@ -69,6 +69,13 @@ body {
   top: 0;
   left: 0;
 }
+/* detail.php
+ *============================*/
+#qrcode {
+  width: 256px;
+  height: 256px;
+  margin: 20px auto;
+}
 /* footer
  *============================*/
 .footer {
