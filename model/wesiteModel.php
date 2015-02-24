@@ -10,14 +10,14 @@ class DataConnection {
 				define('MYSQL_IP', '127.0.0.1');
 				define('MYSQL_UNAME', 'root');
 				define('MYSQL_PWD', '');
-			} else {
-				define('MYSQL_IP', 'remote');
-				define('MYSQL_UNAME', 'root');
-				define('MYSQL_PWD', '');
+				self::$connection = mysql_connect(MYSQL_IP, MYSQL_UNAME, MYSQL_PWD) or die(mysql_error());
+				mysql_select_db('wesite') or die(mysql_error());
+				mysql_query('set names utf8') or die(mysql_error());
+			} else if ($mysql_location === 'SAE') {
+				self::$connection = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT, SAE_MYSQL_USER, SAE_MYSQL_PASS) or die(mysql_error());
+				mysql_select_db(SAE_MYSQL_DB, self::$connection) or die(mysql_error());
+				mysql_query('set names utf8') or die(mysql_error());
 			}
-			self::$connection = mysql_connect(MYSQL_IP, MYSQL_UNAME, MYSQL_PWD) or die(mysql_error());
-			mysql_select_db('wesite') or die(mysql_error());
-			mysql_query('set names utf8') or die(mysql_error());
 		}
 		return self::$connection;
 	}
