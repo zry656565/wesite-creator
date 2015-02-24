@@ -32,9 +32,10 @@ include('layout/header.php');
 		<h1><?= $page->pageName ?></h1>
 		<p class="lead">扫描下方的二维码查看效果，你也可以点击修改按钮进行修改。</p>
 		<div id="qrcode"></div>
-		<a href="/create.php?id=<?= $_GET['id'] ?>">
+<!--		<a href="/create.php?id=--><?//= $_GET['id'] ?><!--">-->
 			<button type="button" class="btn btn-primary btn-lg">修改</button>
-		</a>
+<!--		</a>-->
+		<button type="button" class="btn btn-danger btn-lg">删除</button>
 	</div>
 </div>
 
