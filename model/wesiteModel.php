@@ -4,7 +4,7 @@ class DataConnection {
 
 	public static function getConnection() {
 		if (self::$connection == null) {
-			$mysql_location = 'local';
+			$mysql_location = 'SAE';
 
 			if ($mysql_location === 'local') {
 				define('MYSQL_IP', '127.0.0.1');
