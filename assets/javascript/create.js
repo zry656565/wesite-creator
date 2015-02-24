@@ -48,7 +48,7 @@ $W.pageInfo = {};
                 contentType: false,
                 success: function (response) {
                     response = JSON.parse(response);
-                    $W.pageInfo.defaultBackground = 'http://women-image.b0.upaiyun.com/' + response.url;
+                    $W.pageInfo.defaultBackground = 'http://women-image.b0.upaiyun.com' + response.url;
                     $('.iphone').append('<img class="background" src="' + $W.pageInfo.defaultBackground + '"/>');
                     $('.background-upload + .help-block').html('上传成功');
                     setTimeout(function(){
@@ -77,7 +77,7 @@ $W.pageInfo = {};
                 contentType: false,
                 success: function (response) {
                     response = JSON.parse(response);
-                    $W.pageInfo.bgm = 'http://women-music.b0.upaiyun.com/' + response.url;
+                    $W.pageInfo.bgm = 'http://women-music.b0.upaiyun.com' + response.url;
                     $('.music-upload + .help-block').html('上传成功');
                     setTimeout(function(){
                         $('.music-upload + .help-block').html('为了让用户更快地加载出页面，请截取并压缩好背景音乐后再上传');
