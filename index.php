@@ -1,3 +1,8 @@
+<?php
+require_once('model/wesiteModel.php');
+$page = new Page();
+$pages = $page->find();
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -19,10 +24,11 @@ include('layout/header.php');
 	</div>
 
 	<?php
-	$arr = [1,2,3,4,5,6,7,8];
-	foreach ($arr as $a) { ?>
+	foreach ($pages as $page) { ?>
 		<div class="col-lg-3 col-md-3">
-			<div class="page"><?= $a ?></div>
+			<div class="page" style="background-image: url(<?= $page->bg ?>); background-size: cover;">
+				<?= $page->pageName ?>
+			</div>
 		</div>
 	<?php
 	} ?>

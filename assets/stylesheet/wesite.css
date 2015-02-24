@@ -10,7 +10,7 @@ body {
 body {
   padding-top: 50px;
 }
-/* ...
+/* index.php
  *============================*/
 .head-info {
   padding: 40px 15px 20px;
@@ -26,6 +26,11 @@ body {
   width: 100%;
   background: #204d74;
   box-sizing: border-box;
+  text-align: center;
+  line-height: 140px;
+  font-size: 20px;
+  color: white;
+  text-shadow: 2px 2px 2px #969696;
 }
 /* create.php
  *============================*/
