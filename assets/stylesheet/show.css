@@ -25,23 +25,44 @@ body {
   right: 0;
   left: 0;
 }
-.background {
+.swiper-slide {
+  position: relative;
+}
+.swiper-slide .sub {
+  position: absolute;
+  width: 80%;
+  left: 10%;
+}
+.swiper-slide .top {
+  height: 10%;
+  top: 5%;
+}
+.swiper-slide .header {
+  top: 20%;
+  height: 15%;
+}
+.swiper-slide .body {
+  top: 40%;
+  height: 40%;
+}
+.swiper-slide .footer {
+  top: 85%;
+  height: 10%;
+}
+.swiper-slide .music-icon {
+  width: 32px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.swiper-slide .background {
   width: 100%;
   height: 100%;
 }
-.arrow {
+.swiper-slide .arrow {
   position: relative;
   width: 19px;
   left: 48%;
   bottom: 50px;
   opacity: 0.7;
-}
-.swiper-slide {
-  position: relative;
-}
-.music-icon {
-  width: 32px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }

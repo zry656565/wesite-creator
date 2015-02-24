@@ -1,0 +1,25 @@
+.swiper-slide {
+  position: relative;
+}
+.swiper-slide .sub {
+  background: black;
+  opacity: 0.6;
+  width: 100%;
+  left: 0;
+}
+.swiper-slide .top {
+  height: 10%;
+  top: 0;
+}
+.swiper-slide .header {
+  top: 20%;
+  height: 0;
+}
+.swiper-slide .body {
+  top: 15%;
+  height: 65%;
+}
+.swiper-slide .footer {
+  top: 80%;
+  height: 15%;
+}
