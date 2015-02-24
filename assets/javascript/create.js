@@ -90,16 +90,27 @@ $W.pageInfo = {};
             });
         });
 
+        var disable = false;
         $('.btn.post').click(function() {
+            if (disable) return;
+
+            if (!$W.pageInfo.title) {
+                alert('请填写本页面的标题');
+                return;
+            }
+
+            disable = true;
             $.ajax({
                 url: 'handler.php',
                 type: 'post',
                 data: $W.pageInfo,
                 success: function(result) {
-
+                    disable = false;
+                    window.location.href = "/";
                 },
                 error: function(result) {
                     alert('与服务器通信时发生错误。');
+                    disable = false;
                 }
             });
         })
