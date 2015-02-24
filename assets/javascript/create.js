@@ -89,5 +89,19 @@ $W.pageInfo = {};
                 }
             });
         });
+
+        $('.btn.post').click(function() {
+            $.ajax({
+                url: 'handler.php',
+                type: 'post',
+                data: $W.pageInfo,
+                success: function(result) {
+
+                },
+                error: function(result) {
+                    alert('与服务器通信时发生错误。');
+                }
+            });
+        })
     });
 }(jQuery));

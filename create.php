@@ -1,5 +1,5 @@
 <?php
-require_once('upload.php');
+require_once('help/upload.php');
 $imgConfig = ImageConfig::getConfig('image');
 $musicConfig = ImageConfig::getConfig('music');
 ?>
@@ -57,7 +57,7 @@ include('layout/header.php');
 			<label for="default-background">背景图片</label>
 			<input type="file" name="default-background">
 			<button class="btn btn-default btn-sm background-upload">上传</button>
-			<p class="help-block">请上传宽高比为2:3左右的背景图片</p>
+			<p class="help-block">默认背景图片，请上传宽高比为2:3左右的背景图片</p>
 		</div>
 <!--		<h4>头部内容</h4>-->
 <!--		<textarea name="header"></textarea>-->
@@ -69,7 +69,8 @@ include('layout/header.php');
 <!--		<input type="file" name="background"/>-->
 <!--		<h4>背景音乐</h4>-->
 <!--		<input type="file" name="music"/>-->
-		<button type="button" class="btn btn-success">发布</button>
+		<button type="button" class="btn btn-primary">刷新预览图</button>
+		<button type="button" class="btn btn-success post">发布</button>
 	</div>
 
 </div><!-- /.container -->

@@ -73,6 +73,22 @@ class Data {
 		}
 		return $result;
 	}
+
+	public function insert() {
+		$columns = '(';
+		$values = '(';
+		foreach ($this->columns as $objCol => $dbCol) {
+			if ($this->$objCol) {
+				$columns .= $dbCol . ',';
+				$values .= $this->$objCol . ',';
+			}
+		}
+		$columns = substr($columns, 0, strlen($columns) - 1) . ')';
+		$values = substr($values, 0, strlen($values) - 1) . ')';
+		$sql = "INSERT INTO $this->table $columns VALUES $values;";
+		DataConnection::getConnection();
+		mysql_query($sql) or die(mysql_error());
+	}
 }
 
 class User extends Data {
@@ -112,7 +128,7 @@ class Slide extends Data {
 }
 
 class Page extends Data {
-	public $id, $pageName, $bgm;
+	public $id, $pageName, $bgm, $bg, $description;
 
 	public function __construct() {
 		$options = array(
@@ -122,6 +138,8 @@ class Page extends Data {
 				'id' => 'id',
 				'pageName' => 'pageName',
 				'bgm' => 'backgroundMusic',
+				'bg' => 'defaultBackground',
+				'description' => 'description',
 			)
 		);
 		parent::init($options);
