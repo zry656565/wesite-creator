@@ -39,9 +39,11 @@ $(function(){
                 if (music.paused) {
                     music.play();
                 }
+                $('body').unbind('touchstart');
             };
-            $('body').on('touchstart', play);
             play();
+            $('body').on('touchstart', play);
+
 
             //bind play / pause event
             $('.music-icon').on('touchend', function() {
