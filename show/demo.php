@@ -14,11 +14,12 @@
 	} ?>
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
+	<script src="../assets/library/velocity/velocity.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
 	<?php
 	if (isset($id) && $id === 1) { ?>
-		<script src="../assets/javascript/demo/1.js?v=1.1.0"></script>
+		<script src="../assets/javascript/demo/1.js?v=1.1.1"></script>
 	<?php
 	} ?>
 </head>
@@ -35,7 +36,7 @@
 		<?php
 		foreach ($data['slides'] as $slide) { ?>
 			<div class="swiper-slide" <?= isset($slide['id']) ? "data-id=\"{$slide['id']}\"" : "" ?>>
-				<img class="music-icon" src="../assets/images/music.png"/>
+				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music.png"/>
 				<img class="background" src="<?= $slide['background'] ?>" />
 				<?php if (isset($slide['id'])) { ?>
 				<img class="header sub" src="<?= $slide['header'] ?>"/>

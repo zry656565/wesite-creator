@@ -57,9 +57,9 @@ $(function(){
         },
         onSlideChangeEnd: function(swiper) {
             if (swiper.activeIndex === 3) {
-                $('[data-id="5"] .header').animate({ opacity: 1 }, 700, function() {
-                    $('[data-id="5"] .body').animate({ opacity: 1 }, 1500, function() {
-                        $('[data-id="5"] .footer').animate({ opacity: 1 }, 1200);
+                $('[data-id="5"] .header').velocity({ opacity: 1 }, 700, function() {
+                    $('[data-id="5"] .body').velocity({ opacity: 1 }, 1500, function() {
+                        $('[data-id="5"] .footer').velocity({ opacity: 1 }, 1200);
                     });
                 });
             }
