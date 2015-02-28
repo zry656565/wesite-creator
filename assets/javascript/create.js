@@ -50,10 +50,7 @@ $W.pageInfo = {};
                     response = JSON.parse(response);
                     $W.pageInfo.defaultBackground = 'http://women-image.b0.upaiyun.com' + response.url;
                     $('.iphone').append('<img class="background" src="' + $W.pageInfo.defaultBackground + '"/>');
-                    $('.background-upload + .help-block').html('上传成功');
-                    setTimeout(function(){
-                        $('.background-upload + .help-block').html('请上传宽高比为2:3左右的背景图片');
-                    }, 3000);
+                    $('.background-upload + .help-block').html('已上传背景：' + $W.pageInfo.defaultBackground);
                     $('.background-upload').html('重新上传');
                 },
                 error: function () {
@@ -78,10 +75,7 @@ $W.pageInfo = {};
                 success: function (response) {
                     response = JSON.parse(response);
                     $W.pageInfo.bgm = 'http://women-music.b0.upaiyun.com' + response.url;
-                    $('.music-upload + .help-block').html('上传成功');
-                    setTimeout(function(){
-                        $('.music-upload + .help-block').html('为了让用户更快地加载出页面，请截取并压缩好背景音乐后再上传');
-                    }, 3000);
+                    $('.music-upload + .help-block').html('已上传音乐：' + $W.pageInfo.bgm);
                     $('.music-upload').html('重新上传');
                 },
                 error: function () {

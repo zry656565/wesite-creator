@@ -2,6 +2,14 @@
 require_once('help/upload.php');
 $imgConfig = ImageConfig::getConfig('image');
 $musicConfig = ImageConfig::getConfig('music');
+
+$id = $_GET['id'];
+$update = isset($id);
+if ($update) {
+	require_once('model/wesiteModel.php');
+	$page = new Page();
+	$page->load($id);
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -41,23 +49,23 @@ include('layout/header.php');
 		<h2>配置</h2>
 		<div class="form-group">
 			<label for="title" class="sr-only">微网页标题</label>
-			<input type="text" class="form-control" name="title" placeholder="微网页标题">
+			<input type="text" class="form-control" name="title" placeholder="微网页标题" value="<?= $update ? $page->pageName : '' ?>">
 		</div>
 		<div class="form-group">
 			<label for="description" class="sr-only">微网页描述</label>
-			<textarea class="form-control" name="description" placeholder="微网页描述"></textarea>
+			<textarea class="form-control" name="description" placeholder="微网页描述"><?= $update ? $page->description : '' ?></textarea>
 		</div>
 		<div class="form-group">
 			<label for="bgm">背景音乐</label>
 			<input type="file" name="bgm">
 			<button class="btn btn-default btn-sm music-upload">上传</button>
-			<p class="help-block">为了让用户更快地加载出页面，请截取并压缩好背景音乐后再上传</p>
+			<p class="help-block"><?= $update ? '已上传音乐：'.$page->bgm : '' ?></p>
 		</div>
 		<div class="form-group">
 			<label for="default-background">背景图片</label>
 			<input type="file" name="default-background">
 			<button class="btn btn-default btn-sm background-upload">上传</button>
-			<p class="help-block">默认背景图片，请上传宽高比为2:3左右的背景图片</p>
+			<p class="help-block"><?= $update ? '已上传背景图片：'.$page->bg : '' ?></p>
 		</div>
 <!--		<h4>头部内容</h4>-->
 <!--		<textarea name="header"></textarea>-->
@@ -79,6 +87,13 @@ include('layout/header.php');
 include('layout/footer.php');
 include('layout/script.php'); ?>
 <script src="assets/javascript/create.js"></script>
+<?php
+if ($update) { ?>
+<script>
+	$('.iphone').append('<img class="background" src="<?= $page->bg ?>"/>');
+</script>
+<?php
+} ?>
 
 </body>
 </html>
