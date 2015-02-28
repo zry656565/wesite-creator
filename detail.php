@@ -35,7 +35,7 @@ include('layout/header.php');
 		<a href="/create.php?id=<?= $_GET['id'] ?>">
 			<button type="button" class="btn btn-primary btn-lg">修改</button>
 		</a>
-		<button type="button" class="btn btn-danger btn-lg">删除</button>
+		<button type="button" class="btn btn-danger btn-lg delete">删除</button>
 	</div>
 </div>
 
@@ -50,6 +50,26 @@ include('layout/script.php'); ?>
 		text: "http://<?= $_SERVER['HTTP_HOST'] ?>/show?id=<?= $_GET['id'] ?>",
 		width: $qr.width(),
 		height: $qr.height()
+	});
+
+	var disable = false;
+	$('.btn.delete').click(function() {
+		if (disable) return;
+
+		disable = true;
+		$.ajax({
+			url: 'delete.php',
+			type: 'post',
+			data: { id: <?= $_GET['id'] ?> },
+			success: function(result) {
+				disable = false;
+				window.location.href = "/";
+			},
+			error: function(result) {
+				alert('与服务器通信时发生错误。');
+				disable = false;
+			}
+		});
 	});
 </script>
 

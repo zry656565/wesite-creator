@@ -106,6 +106,16 @@ class Data {
 		DataConnection::getConnection();
 		mysql_query($sql) or die(mysql_error());
 	}
+
+	public function delete($id = null) {
+		$key = $this->key;
+		if ($id === null) {
+			$id = $this->$key;
+		}
+		$sql = "DELETE FROM $this->table WHERE id = $id";
+		DataConnection::getConnection();
+		mysql_query($sql) or die(mysql_error());
+	}
 }
 
 class User extends Data {

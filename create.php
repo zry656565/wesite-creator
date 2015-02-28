@@ -83,6 +83,9 @@ include('layout/header.php');
 <!--		<input type="file" name="music"/>-->
 		<button type="button" class="btn btn-primary">刷新预览图</button>
 		<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
+		<?php if ($update) { ?>
+		<button type="button" class="btn btn-danger delete">删除</button>
+		<?php } ?>
 	</div>
 
 </div><!-- /.container -->
@@ -102,6 +105,26 @@ if ($update) { ?>
 		bgm: "<?= $page->bgm ?>",
 		id: "<?= $page->id ?>"
 	};
+
+	var delDisable = false;
+	$('.btn.delete').click(function() {
+		if (delDisable) return;
+
+		delDisable = true;
+		$.ajax({
+			url: 'delete.php',
+			type: 'post',
+			data: { id: <?= $_GET['id'] ?> },
+			success: function(result) {
+				delDisable = false;
+				window.location.href = "/";
+			},
+			error: function(result) {
+				alert('与服务器通信时发生错误。');
+				delDisable = false;
+			}
+		});
+	});
 </script>
 <?php
 } ?>
