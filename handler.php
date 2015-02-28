@@ -16,6 +16,13 @@ foreach ($_POST as $key => $value) {
 		case 'bgm':
 			$page->bgm = "'$value'";
 			break;
+		case 'id':
+			$page->id = "$value";
+			break;
 	}
 }
-$page->insert();
+if (isset($_POST['id'])) {
+	$page->update();
+} else {
+	$page->insert();
+}

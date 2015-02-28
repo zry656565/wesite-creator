@@ -9,6 +9,9 @@ if ($update) {
 	require_once('model/wesiteModel.php');
 	$page = new Page();
 	$page->load($id);
+	if (!$page->id) {
+		$update = false;
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -59,13 +62,14 @@ include('layout/header.php');
 			<label for="bgm">背景音乐</label>
 			<input type="file" name="bgm">
 			<button class="btn btn-default btn-sm music-upload">上传</button>
-			<p class="help-block"><?= $update ? '已上传音乐：'.$page->bgm : '' ?></p>
+			<p class="help-block"><?= $update && $page->bgm ? '已上传音乐：'.$page->bgm : '为了让用户更快地加载出页面，请截取并压缩好背景音乐后再上传' ?></p>
+
 		</div>
 		<div class="form-group">
 			<label for="default-background">背景图片</label>
 			<input type="file" name="default-background">
 			<button class="btn btn-default btn-sm background-upload">上传</button>
-			<p class="help-block"><?= $update ? '已上传背景图片：'.$page->bg : '' ?></p>
+			<p class="help-block"><?= $update && $page->bg ? '已上传背景图片：'.$page->bg : '默认背景图片，请上传宽高比为2:3左右的背景图片' ?></p>
 		</div>
 <!--		<h4>头部内容</h4>-->
 <!--		<textarea name="header"></textarea>-->
@@ -78,7 +82,7 @@ include('layout/header.php');
 <!--		<h4>背景音乐</h4>-->
 <!--		<input type="file" name="music"/>-->
 		<button type="button" class="btn btn-primary">刷新预览图</button>
-		<button type="button" class="btn btn-success post">发布</button>
+		<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
 	</div>
 
 </div><!-- /.container -->
@@ -91,6 +95,13 @@ include('layout/script.php'); ?>
 if ($update) { ?>
 <script>
 	$('.iphone').append('<img class="background" src="<?= $page->bg ?>"/>');
+	$W.pageInfo = {
+		title: "<?= $page->pageName ?>",
+		description: "<?= $page->description ?>",
+		defaultBackground: "<?= $page->bg ?>",
+		bgm: "<?= $page->bgm ?>",
+		id: "<?= $page->id ?>"
+	};
 </script>
 <?php
 } ?>

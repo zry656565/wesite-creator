@@ -107,6 +107,6 @@ $W.pageInfo = {};
                     disable = false;
                 }
             });
-        })
+        });
     });
 }(jQuery));

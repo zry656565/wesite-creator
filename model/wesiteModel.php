@@ -89,6 +89,23 @@ class Data {
 		DataConnection::getConnection();
 		mysql_query($sql) or die(mysql_error());
 	}
+
+	public function update($id = null) {
+		$key = $this->key;
+		if ($id === null) {
+			$id = $this->$key;
+		}
+		$columns = '';
+		foreach ($this->columns as $objCol => $dbCol) {
+			if ($this->$objCol) {
+				$columns .= "$dbCol={$this->$objCol}, ";
+			}
+		}
+		$columns = substr($columns, 0, strlen($columns) - 2);
+		$sql = "UPDATE $this->table SET $columns WHERE id = $id";
+		DataConnection::getConnection();
+		mysql_query($sql) or die(mysql_error());
+	}
 }
 
 class User extends Data {
