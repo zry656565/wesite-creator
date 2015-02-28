@@ -1,21 +1,3 @@
-.swiper-slide[data-id="5"] .sub {
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+.swiper-slide .sub {
   opacity: 0;
-}
-.swiper-slide[data-id="5"] .header {
-  width: 43.34%;
-  height: 1.33%;
-  top: 4%;
-}
-.swiper-slide[data-id="5"] .body {
-  width: 54.44%;
-  height: 55.78%;
-  top: 17%;
-}
-.swiper-slide[data-id="5"] .footer {
-  top: 75%;
-  width: 100%;
-  height: 16.37%;
 }

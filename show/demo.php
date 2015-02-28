@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.1.0">
 	<?php
 	if (isset($id) && $id === 1) { ?>
-	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.0">
+	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.1">
 	<?php
 	} ?>
 	<!-- script -->
@@ -19,7 +19,7 @@
 	<script src="../assets/library/spin/spin.js"></script>
 	<?php
 	if (isset($id) && $id === 1) { ?>
-		<script src="../assets/javascript/demo/1.js?v=1.1.1"></script>
+		<script src="../assets/javascript/demo/1.js?v=1.1.2"></script>
 	<?php
 	} ?>
 </head>
@@ -27,26 +27,31 @@
 
 <div id="spinner"></div>
 <div id="loading-hover"></div>
-<audio id="music" preload="auto" autoplay loop>
+<audio id="music" preload="auto" loop>
 	<source src="<?= $music ?>" type="audio/mpeg">
 </audio>
 
 <div class="swiper-container">
 	<div class="swiper-wrapper">
 		<?php
+		$id = 1;
 		foreach ($data['slides'] as $slide) { ?>
-			<div class="swiper-slide" <?= isset($slide['id']) ? "data-id=\"{$slide['id']}\"" : "" ?>>
-				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music.png"/>
+			<div class="swiper-slide" data-id="<?= $id ?>">
+				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
 				<img class="background" src="<?= $slide['background'] ?>" />
-				<?php if (isset($slide['id'])) { ?>
-				<img class="header sub" src="<?= $slide['header'] ?>"/>
-				<img class="body sub" src="<?= $slide['body'] ?>"/>
-				<img class="footer sub" src="<?= $slide['footer'] ?>"/>
+				<?php
+				foreach ($slide['asset'] as $asset) { ?>
+				<img class="sub" src="<?= $asset['src'] ?>"
+					 style="width: <?= $asset['width'] ?>%;
+						 height: <?= $asset['height'] ?>%;
+						 left: <?= $asset['left'] ?>%;
+						 top: <?= $asset['top'] ?>%;"/>
 				<?php
 				} ?>
 				<img class="arrow" src="../assets/images/arrow.gif" />
 			</div>
 		<?php
+			$id++;
 		}
 		?>
 	</div>

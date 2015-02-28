@@ -53,16 +53,12 @@ $(function(){
                     $('.music-icon').css('opacity', 0.5);
                     music.pause();
                 }
-            })
+            });
+            $('[data-id="1"] .sub').velocity({ opacity: 1 }, 1200);
         },
         onSlideChangeEnd: function(swiper) {
-            if (swiper.activeIndex === 3) {
-                $('[data-id="5"] .header').velocity({ opacity: 1 }, 700, function() {
-                    $('[data-id="5"] .body').velocity({ opacity: 1 }, 1500, function() {
-                        $('[data-id="5"] .footer').velocity({ opacity: 1 }, 1200);
-                    });
-                });
-            }
+            var id = swiper.activeIndex;
+            $('[data-id="' + id + '"] .sub').velocity({ opacity: 1 }, 1200);
         }
     });
 });
