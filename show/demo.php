@@ -23,6 +23,19 @@
 		<script src="../assets/javascript/demo/1.js?v=1.1.2"></script>
 	<?php
 	} ?>
+
+	<!-- 百度统计 -->
+	<script>
+		if (['127.0.0.1', 'localhost', '192.168.1.1'].indexOf(document.domain) < 0) {
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "//hm.baidu.com/hm.js?827c8bc94d0162dab3092ab90aa9ef83";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		}
+	</script>
 </head>
 <body>
 

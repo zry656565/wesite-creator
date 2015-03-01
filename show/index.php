@@ -31,6 +31,19 @@ if (!$page->id) {
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
 	<script src="../assets/javascript/wesite.js?v=1.0.3"></script>
+
+	<!-- 百度统计 -->
+	<script>
+		if (['127.0.0.1', 'localhost', '192.168.1.1'].indexOf(document.domain) < 0) {
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "//hm.baidu.com/hm.js?827c8bc94d0162dab3092ab90aa9ef83";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		}
+	</script>
 </head>
 <body>
 
