@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="../assets/library/fancyBox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 	<?php
 	if (isset($id) && $id === 1) { ?>
-	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.2">
+	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.3">
 	<?php
 	} ?>
 	<!-- script -->
