@@ -8,9 +8,10 @@
 	<meta name="description" content="<?= $description ?>">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
 	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.1.0">
+	<link rel="stylesheet" href="../assets/library/fancyBox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 	<?php
 	if (isset($id) && $id === 1) { ?>
-	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.1">
+	<link rel="stylesheet" href="../assets/stylesheet/demo/1.css?v=1.1.2">
 	<?php
 	} ?>
 	<!-- script -->
@@ -18,9 +19,10 @@
 	<script src="../assets/library/velocity/velocity.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
+	<script type="text/javascript" src="../assets/library/fancyBox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<?php
 	if (isset($id) && $id === 1) { ?>
-		<script src="../assets/javascript/demo/1.js?v=1.1.2"></script>
+		<script src="../assets/javascript/demo/1.js?v=1.1.3"></script>
 	<?php
 	} ?>
 
@@ -54,15 +56,22 @@
 				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
 				<img class="background" src="<?= $slide['background'] ?>" />
 				<?php
-				foreach ($slide['asset'] as $asset) { ?>
-				<img class="sub" src="<?= $asset['src'] ?>"
-					 style="width: <?= $asset['width'] ?>%;
-						 height: <?= $asset['height'] ?>%;
-						 left: <?= $asset['left'] ?>%;
-						 top: <?= $asset['top'] ?>%;"/>
-				<?php
-				} ?>
+				if (isset($slide['asset'])) { ?>
+				<a class="fancybox-link" href="#fancybox-<?= $id ?>">
+					<?php
+					foreach ($slide['asset'] as $asset) { ?>
+					<img class="sub" src="<?= $asset['src'] ?>"
+						 style="width: <?= $asset['width'] ?>%;
+							 height: <?= $asset['height'] ?>%;
+							 left: <?= $asset['left'] ?>%;
+							 top: <?= $asset['top'] ?>%;"/>
+					<?php
+					} ?>
+				</a>
+					<?php
+				}?>
 				<img class="arrow" src="../assets/images/arrow.gif" />
+				<div id="fancybox-<?= $id ?>" class="fancybox"><?= $slide['content'] ?></div>
 			</div>
 		<?php
 			$id++;

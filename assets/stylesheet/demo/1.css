@@ -1,3 +1,13 @@
 .swiper-slide .sub {
   opacity: 0;
 }
+.fancybox {
+  display: none;
+  font-size: 20px;
+  line-height: 1.5;
+  text-indent: 1.2em;
+  text-align: justify;
+}
+.fancybox p {
+  margin: 0;
+}

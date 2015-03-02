@@ -55,6 +55,10 @@ $(function(){
                 }
             });
             $('[data-id="1"] .sub').velocity({ opacity: 1 }, 1200);
+            $('.fancybox-link').fancybox({
+                closeBtn	: false,
+                closeClick  : true
+            });
         },
         onSlideChangeEnd: function(swiper) {
             var id = swiper.activeIndex;
