@@ -3,8 +3,8 @@
 $demo = true;
 
 $id = 1;
-$pageName = 'DEMO PAGE';
-$description = '';
+$pageName = '中洲里程微官网';
+$description = '乐享生活，理想住区，开启新里程！';
 $assetRoot = '//women-image.b0.upaiyun.com/demo/1_almost_final/';
 $music = '//women-music.b0.upaiyun.com/demo/sunrise_little.mp3';
 $data = array(
