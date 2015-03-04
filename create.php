@@ -73,8 +73,7 @@ include('layout/header.php');
 		</div>
 		<ul class="nav nav-tabs nav-slides">
 			<li class="active"><a href="#">P1</a></li>
-			<li><a href="#">P2</a></li>
-			<li><a href="#">+</a></li>
+			<li class="add"><a href="#">+</a></li>
 		</ul>
 		<div class="slide-content">
 			<div class="form-group">
