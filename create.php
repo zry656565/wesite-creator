@@ -56,7 +56,7 @@ include('layout/header.php');
 		</div>
 		<div class="form-group">
 			<label for="description" class="sr-only">微网页描述</label>
-			<textarea class="form-control" name="description" placeholder="微网页描述"><?= $update ? $page->description : '' ?></textarea>
+			<input type="text" class="form-control" name="description" placeholder="微网页描述" value="<?= $update ? $page->description : '' ?>">
 		</div>
 		<div class="form-group">
 			<label for="bgm">背景音乐</label>
@@ -71,21 +71,25 @@ include('layout/header.php');
 			<button class="btn btn-default btn-sm background-upload">上传</button>
 			<p class="help-block"><?= $update && $page->bg ? '已上传背景图片：'.$page->bg : '默认背景图片，请上传宽高比为2:3左右的背景图片' ?></p>
 		</div>
-<!--		<h4>头部内容</h4>-->
-<!--		<textarea name="header"></textarea>-->
-<!--		<h4>中部内容</h4>-->
-<!--		<textarea name="content"></textarea>-->
-<!--		<h4>尾部内容</h4>-->
-<!--		<textarea name="footer"></textarea>-->
-<!--		<h4>背景图片</h4>-->
-<!--		<input type="file" name="background"/>-->
-<!--		<h4>背景音乐</h4>-->
-<!--		<input type="file" name="music"/>-->
-		<button type="button" class="btn btn-primary">刷新预览图</button>
-		<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
-		<?php if ($update) { ?>
-		<button type="button" class="btn btn-danger delete">删除</button>
-		<?php } ?>
+		<ul class="nav nav-tabs nav-slides">
+			<li class="active"><a href="#">P1</a></li>
+			<li><a href="#">P2</a></li>
+			<li><a href="#">+</a></li>
+		</ul>
+		<div class="slide-content">
+			<div class="form-group">
+				<label for="slide-background">背景图片</label>
+				<input type="file" name="slide-background">
+				<button id="slide-background-upload" class="btn btn-default btn-sm">上传</button>
+				<p class="help-block"><?= $update && $page->bg ? '已上传背景图片：'.$page->bg : '默认背景图片，请上传宽高比为2:3左右的背景图片' ?></p>
+			</div>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
+			<?php if ($update) { ?>
+				<button type="button" class="btn btn-danger delete">删除</button>
+			<?php } ?>
+		</div>
 	</div>
 
 </div><!-- /.container -->
@@ -93,7 +97,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js"></script>
+<script src="assets/javascript/create.js?v=1.1.0"></script>
 <?php
 if ($update) { ?>
 <script>

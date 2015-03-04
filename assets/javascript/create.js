@@ -5,25 +5,10 @@
 
 var $W = $W || {};
 
-//$W.storage = {
-//    get: function(key) {
-//        return JSON.parse(localStorage.getItem(key));
-//    },
-//    set: function(key, value) {
-//        return localStorage.setItem(key, JSON.stringify(value));
-//    },
-//    clear: function(props) {
-//        if (Object.prototype.toString.call(props) === '[object Array]') {
-//            for (var i = 0; i < props.length; i++) {
-//                localStorage.removeItem(props[i]);
-//            }
-//        } else if (props.toString() === props) {
-//            localStorage.removeItem(props);
-//        }
-//    }
-//};
-
-$W.pageInfo = {};
+currentPage = 1;
+$W.pageInfo = {
+    pages: [{}]
+};
 
 (function($){
     $(function(){
@@ -47,11 +32,58 @@ $W.pageInfo = {};
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    var bg,
+                        $preview;
+
                     response = JSON.parse(response);
-                    $W.pageInfo.defaultBackground = 'http://women-image.b0.upaiyun.com' + response.url;
-                    $('.iphone').append('<img class="background" src="' + $W.pageInfo.defaultBackground + '"/>');
+                    bg = 'http://women-image.b0.upaiyun.com' + response.url;
+                    $W.pageInfo.defaultBackground = bg;
+
+                    $preview = $('.iphone');
+                    if ($preview.find('.background').length === 0) {
+                        $preview.append('<img class="background" src="' + bg + '"/>');
+                    } else {
+                        $preview.find('.background').attr('src', bg);
+                    }
+
                     $('.background-upload + .help-block').html('已上传背景：' + $W.pageInfo.defaultBackground);
                     $('.background-upload').html('重新上传');
+                },
+                error: function () {
+                    alert('ERROR: cannot connect to server');
+                }
+            });
+        });
+
+        $('#slide-background-uploada').click(function() {
+            var form = new FormData();
+            form.append("file", $('[name="slide-background"]')[0].files[0]);
+            form.append("policy", $W.uploadImage.policy);
+            form.append("signature", $W.uploadImage.signature);
+            $(this).html('正在上传');
+
+            $.ajax({
+                url: $W.uploadImage.url,
+                type: 'post',
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    var bg,
+                        $preview;
+
+                    response = JSON.parse(response);
+                    bg = 'http://women-image.b0.upaiyun.com' + response.url;
+                    $W.pageInfo.page[currentPage].background = bg;
+
+                    $preview = $('.iphone');
+                    if ($preview.find('.background').length === 0) {
+                        $preview.append('<img class="background" src="' + bg + '"/>');
+                    } else {
+                        $preview.find('.background').attr('src', bg);
+                    }
+                    $('#slide-background-upload + .help-block').html('已上传背景：' + bg);
+                    $('#slide-background-upload').html('重新上传');
                 },
                 error: function () {
                     alert('ERROR: cannot connect to server');
