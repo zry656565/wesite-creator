@@ -138,8 +138,29 @@ class User extends Data {
 	}
 }
 
+class Asset extends Data {
+	public $id, $src, $width, $height, $top, $left, $slideId;
+
+	public function __construct() {
+		$options = array(
+			'key' => 'id',
+			'table' => 'asset',
+			'columns' => array(
+				'id' => 'id',
+				'src' => 'src',
+				'width' => 'width',
+				'height' => 'height',
+				'top' => 'top',
+				'left' => 'left',
+				'slideId' => 'slide_id',
+			)
+		);
+		parent::init($options);
+	}
+}
+
 class Slide extends Data {
-	public $id, $title, $footer, $content, $contentType, $pageId;
+	public $id, $background, $pageId;
 
 	public function __construct() {
 		$options = array(
@@ -147,14 +168,17 @@ class Slide extends Data {
 			'table' => 'slide',
 			'columns' => array(
 				'id' => 'id',
-				'title' => 'title',
-				'footer' => 'footer',
-				'content' => 'content',
-				'contentType' => 'contentType',
+				'background' => 'background',
 				'pageId' => 'pageId',
 			)
 		);
 		parent::init($options);
+	}
+
+	public function assets() {
+		$a = new Asset();
+		$a->slideId = $this->id;
+		return $a->find();
 	}
 }
 
