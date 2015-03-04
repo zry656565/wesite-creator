@@ -37,7 +37,7 @@ class Data {
 		if ($id == null) {
 			$id = $this->$key;
 		}
-		$sql = "select * from {$this->table} where {$this->columns[$key]} = $id";
+		$sql = "select * from {$this->table} where {$this->columns[$key]} = $id and isDeleted = 0";
 		DataConnection::getConnection();
 		$rs = mysql_query($sql) or die(mysql_error());
 		$row = mysql_fetch_assoc($rs);
@@ -59,7 +59,7 @@ class Data {
 				$where .= " and $dbCol = {$this->$objCol}";
 			}
 		}
-		$sql = "select * from {$this->table} $where";
+		$sql = "select * from {$this->table} $where and isDeleted = 0";
 		DataConnection::getConnection();
 		$rs = mysql_query($sql) or die(mysql_error());
 		$row = mysql_fetch_assoc($rs);
@@ -107,12 +107,16 @@ class Data {
 		mysql_query($sql) or die(mysql_error());
 	}
 
-	public function delete($id = null) {
+	public function delete($trulyDelete = true, $id = null) {
 		$key = $this->key;
 		if ($id === null) {
 			$id = $this->$key;
 		}
-		$sql = "DELETE FROM $this->table WHERE id = $id";
+		if (!$trulyDelete) {
+			$sql = "UPDATE $this->table SET isDeleted = 1 WHERE id = $id";
+		} else {
+			$sql = "DELETE FROM $this->table WHERE id = $id";
+		}
 		DataConnection::getConnection();
 		mysql_query($sql) or die(mysql_error());
 	}
