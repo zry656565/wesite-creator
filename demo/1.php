@@ -201,6 +201,33 @@ $data = array(
 			),
 			'content' => '<p>中洲投资控股创立于1984年，1994年上市，是国家首批房地产开发一级资质企业，30年筑作精品，现已形成立足深圳、辐射全国的发展格局。</p><p>如今，中洲控股深耕浦东近10年，将与您一起再次开启幸福新里程。</p>',
 			'link' => 'http://mobile.birdweixin.com/p/m/sp/000000004b52bfb7014bdaa73e6b6078.shtml',
+		), array(
+			'background' => $assetRoot . 'end_bg.png',
+			'asset' => array(
+				array(
+					'src' => $assetRoot . 'end_1.png',
+					'width' => '57.69',
+					'height' => '30.75',
+					'top' => '32',
+					'left' => '21.16',
+				),
+				array(
+					'src' => $assetRoot . 'end_2.png',
+					'width' => '42.75',
+					'height' => '5.02',
+					'top' => '88',
+					'left' => '28.62',
+				),
+				array(
+					'src' => $assetRoot . 'end_3.png',
+					'width' => '34.02',
+					'height' => '2.73',
+					'top' => '95',
+					'left' => '32.99',
+				),
+			),
+			'content' => '<p>中洲投资控股创立于1984年，1994年上市，是国家首批房地产开发一级资质企业，30年筑作精品，现已形成立足深圳、辐射全国的发展格局。</p><p>如今，中洲控股深耕浦东近10年，将与您一起再次开启幸福新里程。</p>',
+			'link' => 'http://mobile.birdweixin.com/p/m/sp/000000004b52bfb7014bdaa73e6b6078.shtml',
 		),
 	)
 );
