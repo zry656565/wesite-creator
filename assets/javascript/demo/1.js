@@ -55,7 +55,7 @@ $(function(){
                 }
             });
             $('[data-id="1"] .sub').velocity({ opacity: 1 }, 1200);
-            $('.fancybox-link').fancybox();
+            $('.fancybox-link').not('[data-jump]').fancybox();
         },
         onSlideChangeEnd: function(swiper) {
             var id = swiper.activeIndex;
