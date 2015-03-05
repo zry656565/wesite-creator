@@ -205,18 +205,18 @@ $data = array(
 			'background' => $assetRoot . 'end_bg.png',
 			'asset' => array(
 				array(
-					'src' => $assetRoot . 'end_1.png',
-					'width' => '57.69',
-					'height' => '30.75',
-					'top' => '32',
-					'left' => '21.16',
+					'src' => $assetRoot . 'end_1.png?v2',
+					'width' => '64.20',
+					'height' => '35.94',
+					'top' => '30',
+					'left' => '17.9',
 				),
 				array(
-					'src' => $assetRoot . 'end_2.png',
-					'width' => '42.75',
-					'height' => '5.02',
-					'top' => '88',
-					'left' => '28.62',
+					'src' => $assetRoot . 'end_2.png?v2',
+					'width' => '49.4',
+					'height' => '8.69',
+					'top' => '86',
+					'left' => '25.3',
 				),
 				array(
 					'src' => $assetRoot . 'end_3.png',
