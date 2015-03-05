@@ -75,15 +75,43 @@ include('layout/header.php');
 			<li class="active"><a href="#">P1</a></li>
 			<li class="add"><a href="#">+</a></li>
 		</ul>
-		<div class="slide-content">
+		<div class="slide-content form-inline">
 			<div class="form-group">
-				<label for="slide-background">背景图片</label>
+				<label for="slide-background">本页背景</label>
 				<input type="file" name="slide-background">
 				<button id="slide-background-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="help-block"><?= $update && $page->bg ? '已上传背景图片：'.$page->bg : '默认背景图片，请上传宽高比为2:3左右的背景图片' ?></p>
+				<p class="help-block"><?= $update && $page->bg ? '已上传本页背景：'.$page->bg : '' ?></p>
+			</div>
+			<hr/>
+			<ul class="nav nav-pills nav-slides">
+				<li class="active"><a href="#">A1</a></li>
+				<li class="add"><a href="#">+</a></li>
+			</ul>
+			<div class="form-group">
+				<label for="asset-src">资源图片</label>
+				<input type="file" name="asset-src">
+				<button id="asset-upload" class="btn btn-default btn-sm">上传</button>
+				<p class="help-block"><?= $update && $page->bg ? '已上传资源图片：'.$page->bg : '' ?></p>
+			</div>
+			<div class="form-group">
+				<label for="asset-width">宽度</label>
+				<input type="text" class="form-control" name="asset-width" placeholder="请输入宽度">
+			</div>
+			<div class="form-group">
+				<label for="asset-left">左边距</label>
+				<input type="text" class="form-control" name="asset-left" placeholder="请输入宽度">
+			</div>
+			<hr/>
+			<div class="form-group">
+				<label for="asset-height">高度</label>
+				<input type="text" class="form-control" id="asset-height" placeholder="请输入高度">
+			</div>
+			<div class="form-group">
+				<label for="asset-right">上边距</label>
+				<input type="text" class="form-control" id="asset-right" placeholder="请输入高度">
 			</div>
 		</div>
-		<div class="btn-group">
+		<div class="btn-group final">
 			<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
 			<?php if ($update) { ?>
 				<button type="button" class="btn btn-danger delete">删除</button>

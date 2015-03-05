@@ -68,6 +68,16 @@ body {
 .nav-slides {
   margin: 0 0 10px;
 }
+.form-inline hr {
+  border: 0;
+  margin: 5px 0;
+}
+.form-inline label {
+  padding: 0 3px 0;
+}
+.final {
+  margin: 10px 0 0;
+}
 /* detail.php
  *============================*/
 #qrcode {
