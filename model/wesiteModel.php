@@ -74,7 +74,7 @@ class Data {
 		return $result;
 	}
 
-	public function insert() {
+	public function insert($returnId = false) {
 		$columns = '(';
 		$values = '(';
 		foreach ($this->columns as $objCol => $dbCol) {
@@ -88,6 +88,12 @@ class Data {
 		$sql = "INSERT INTO $this->table $columns VALUES $values;";
 		DataConnection::getConnection();
 		mysql_query($sql) or die(mysql_error());
+		if ($returnId) {
+			$sql = "SELECT MAX($this->key) as max_id from {$this->table}";
+			$rs = mysql_query($sql) or die(mysql_error());
+			$row = mysql_fetch_assoc($rs);
+			return $row['max_id'];
+		}
 	}
 
 	public function update($id = null) {
@@ -151,7 +157,7 @@ class Asset extends Data {
 				'width' => 'width',
 				'height' => 'height',
 				'top' => 'top',
-				'left' => 'left',
+				'left' => 'left_margin',
 				'slideId' => 'slide_id',
 			)
 		);

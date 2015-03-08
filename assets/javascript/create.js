@@ -19,10 +19,10 @@ $W.pageInfo = {
     saveAsset: function() {
         var asset = this.getCurrentAsset();
         if (asset) {
-            asset.width = $('[name="asset-width"]').val();
-            asset.height = $('[name="asset-height"]').val();
-            asset.top = $('[name="asset-top"]').val();
-            asset.left = $('[name="asset-left"]').val();
+            asset.width = $('input[name="asset-width"]').val();
+            asset.height = $('input[name="asset-height"]').val();
+            asset.top = $('input[name="asset-top"]').val();
+            asset.left = $('input[name="asset-left"]').val();
         }
     },
     getCurrentAsset: function() { return this.slides[this.currentSlide].assets[this.currentAsset]; },
@@ -159,7 +159,9 @@ $W.pageInfo = {
         $('.btn.post').click(function() {
             if (disable) return;
 
-            if (!$W.pageInfo.title) {
+            var title = $('input[name=title]').val();
+
+            if (!title) {
                 alert('请填写本页面的标题');
                 return;
             }
@@ -169,14 +171,15 @@ $W.pageInfo = {
                 url: 'handler.php',
                 type: 'post',
                 data: {
-                    title: $('[name=title]').val(),
-                    description: $('[name=description]').val(),
+                    title: title,
+                    description: $('input[name=description]').val(),
                     slides: $W.pageInfo.slides,
-                    defaultBackground: $W.pageInfo.defaultBackground
+                    defaultBackground: $W.pageInfo.defaultBackground,
+                    bgm: $W.pageInfo.bgm
                 },
                 success: function(result) {
                     disable = false;
-                    window.location.href = "/";
+                    //window.location.href = "/";
                 },
                 error: function(result) {
                     alert('与服务器通信时发生错误。');

@@ -24,5 +24,21 @@ foreach ($_POST as $key => $value) {
 if (isset($_POST['id'])) {
 	$page->update();
 } else {
-	$page->insert();
+	$pageId = $page->insert(true);
+	foreach ($_POST['slides'] as $slide) {
+		$s = new Slide();
+		$s->background = "'{$slide->background}'";
+		$s->pageId = $pageId;
+		$slideId = $s->insert(true);
+		foreach ($slide['assets'] as $asset) {
+			$a = new Asset();
+			$a->src = "'{$asset['src']}'";
+			$a->width = "'{$asset['width']}'";
+			$a->height = "'{$asset['height']}'";
+			$a->top = "'{$asset['top']}'";
+			$a->left = "'{$asset['left']}'";
+			$a->slideId = $slideId;
+			$a->insert();
+		}
+	}
 }
