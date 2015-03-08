@@ -64,6 +64,13 @@ body {
   height: 100%;
   top: 0;
   left: 0;
+  z-index: -1;
+}
+.iphone .sub {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 .nav-slides {
   margin: 0 0 10px;

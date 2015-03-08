@@ -7,87 +7,125 @@ var $W = $W || {};
 
 $W.pageInfo = {
     slides: [
-        { assets: [] }
+        {
+            background: null,
+            assets: []
+        }
     ],
-    currentPage: 1,
-    currentAsset: 1
+    defaultBackground: null,
+    currentSlide: 0,
+    currentAsset: 0,
+    pushAsset: function(asset) { this.slides[this.currentSlide].assets.push(asset); },
+    saveAsset: function() {
+        var asset = this.getCurrentAsset();
+        if (asset) {
+            asset.width = $('[name="asset-width"]').val();
+            asset.height = $('[name="asset-height"]').val();
+            asset.top = $('[name="asset-top"]').val();
+            asset.left = $('[name="asset-left"]').val();
+        }
+    },
+    getCurrentAsset: function() { return this.slides[this.currentSlide].assets[this.currentAsset]; },
+    getAssets: function() { return this.slides[this.currentSlide].assets; },
+    setBackground: function(bg, isSlideBackground) {
+        var currentSlide = this.slides[this.currentSlide],
+            $preview;
+
+        if (isSlideBackground) {
+            if (!currentSlide) {
+                currentSlide = this.slides[this.currentSlide] = {
+                    background: null,
+                    assets: []
+                };
+            }
+            currentSlide.background = bg;
+        } else if (isSlideBackground) {
+            this.defaultBackground = bg;
+        }
+
+        //refresh DOM
+        if (isSlideBackground || !(currentSlide && currentSlide.background)) {
+            $preview = $('.iphone');
+            if ($preview.find('.background').length === 0) {
+                $preview.append('<img class="background" src="' + bg + '"/>');
+            } else {
+                $preview.find('.background').attr('src', bg);
+            }
+        }
+    },
+    getBackground: function() {
+        var currentSlide = this.slides[this.currentSlide];
+        return (currentSlide && currentSlide.background) || this.defaultBackground;
+    },
+    refresh: function() {
+        var self = $W.pageInfo,
+            $preview = $('.iphone'),
+            bg = self.getBackground(),
+            assets = self.getAssets();
+
+        self.saveAsset();
+        $preview.empty();
+        for (var i = 0; i < assets.length; i++) {
+            $preview.append('<img class="sub" src="' + assets[i].src + '" style="' +
+            'width:' + assets[i].width + '%;' +
+            'height:' + assets[i].height + '%;' +
+            'top:' + assets[i].top + '%;' +
+            'left:' + assets[i].left + '%;"/>');
+        }
+        $preview.append('<img class="background" src="' + bg + '"/>');
+    }
 };
 
-function errorHandle(err) {
-    var errObj = JSON.parse(err.responseText);
-    alert(errObj.message);
-}
-
-function uploadCallback(type, fileAttrName, successHandle) {
-    var uploader;
-
-    if (type === 'image') {
-        uploader = $W.uploadImage;
-    } else {
-        uploader = $W.uploadMusic;
+(function($){
+    function errorHandle(err) {
+        var errObj = JSON.parse(err.responseText);
+        alert(errObj.message);
     }
 
-    return function() {
-        var form = new FormData();
-        form.append("file", $('[name="'+ fileAttrName +'"]')[0].files[0]);
-        form.append("policy", uploader.policy);
-        form.append("signature", uploader.signature);
-        $(this).html('正在上传');
+    function uploadCallback(type, fileAttrName, successHandle) {
+        var uploader;
 
-        $.ajax({
-            url: uploader.url,
-            type: 'post',
-            data: form,
-            processData: false,
-            contentType: false,
-            success: successHandle,
-            error: errorHandle
-        });
-    };
+        if (type === 'image') {
+            uploader = $W.uploadImage;
+        } else {
+            uploader = $W.uploadMusic;
+        }
 
-}
+        return function() {
+            var form = new FormData();
+            form.append("file", $('[name="'+ fileAttrName +'"]')[0].files[0]);
+            form.append("policy", uploader.policy);
+            form.append("signature", uploader.signature);
+            $(this).html('正在上传');
 
-(function($){
+            $.ajax({
+                url: uploader.url,
+                type: 'post',
+                data: form,
+                processData: false,
+                contentType: false,
+                success: successHandle,
+                error: errorHandle
+            });
+        };
+    }
+
     $(function(){
         $('.background-upload').click(
             uploadCallback('image', 'default-background', function(response){
-                var bg,
-                    $preview;
-
                 response = JSON.parse(response);
-                bg = 'http://women-image.b0.upaiyun.com' + response.url;
-                $W.pageInfo.defaultBackground = bg;
-
-                if (!($W.pageInfo.slides[$W.currentPage] && $W.pageInfo.slides[$W.currentPage].background)) {
-                    $preview = $('.iphone');
-                    if ($preview.find('.background').length === 0) {
-                        $preview.append('<img class="background" src="' + bg + '"/>');
-                    } else {
-                        $preview.find('.background').attr('src', bg);
-                    }
-                }
-
-                $('.background-upload + .help-block').html('已上传背景：' + $W.pageInfo.defaultBackground);
+                var bg = 'http://women-image.b0.upaiyun.com' + response.url;
+                $W.pageInfo.setBackground(bg);
+                $('.background-upload + .help-block').html('已上传背景：' + bg);
                 $('.background-upload').html('重新上传');
             })
         );
 
         $('#slide-background-upload').click(
             uploadCallback('image', 'slide-background', function(response){
-                var bg,
-                    $preview;
-
                 response = JSON.parse(response);
-                bg = 'http://women-image.b0.upaiyun.com' + response.url;
-                $W.pageInfo.slides[$W.currentPage] = $W.pageInfo.slides[$W.currentPage] || {};
-                $W.pageInfo.slides[$W.currentPage].background = bg;
-
-                $preview = $('.iphone');
-                if ($preview.find('.background').length === 0) {
-                    $preview.append('<img class="background" src="' + bg + '"/>');
-                } else {
-                    $preview.find('.background').attr('src', bg);
-                }
+                var bg = 'http://women-image.b0.upaiyun.com' + response.url;
+                $W.pageInfo.setBackground(bg, true);
                 $('#slide-background-upload + .help-block').html('已上传背景：' + bg);
                 $('#slide-background-upload').html('重新上传');
             })
@@ -95,21 +133,12 @@ function uploadCallback(type, fileAttrName, successHandle) {
 
         $('#asset-upload').click(
             uploadCallback('image', 'asset-src', function(response){
-                var bg,
-                    $preview;
-
                 response = JSON.parse(response);
-                bg = 'http://women-image.b0.upaiyun.com' + response.url;
-                $W.pageInfo.slides[$W.currentPage] = $W.pageInfo.slides[$W.currentPage] || {};
-                $W.pageInfo.slides[$W.currentPage].background = bg;
-
-                $preview = $('.iphone');
-                if ($preview.find('.background').length === 0) {
-                    $preview.append('<img class="background" src="' + bg + '"/>');
-                } else {
-                    $preview.find('.background').attr('src', bg);
-                }
-                $('#asset-upload + .help-block').html('已上传背景：' + bg);
+                var imgUrl = 'http://women-image.b0.upaiyun.com' + response.url;
+                $W.pageInfo.pushAsset({
+                    src: imgUrl
+                });
+                $('#asset-upload + .help-block').html('已上传资源图片：' + imgUrl);
                 $('#asset-upload').html('重新上传');
             })
         );
@@ -123,6 +152,9 @@ function uploadCallback(type, fileAttrName, successHandle) {
             })
         );
 
+        $('.btn.refresh').click($W.pageInfo.refresh);
+
+        // 发布/保存页面
         var disable = false;
         $('.btn.post').click(function() {
             if (disable) return;
@@ -133,16 +165,15 @@ function uploadCallback(type, fileAttrName, successHandle) {
             }
 
             disable = true;
-            $W.pageInfo.title = $('[name=title]').val();
-            $W.pageInfo.description = $('[name=description]').val();
-            $W.pageInfo.slides[0].assets[0].width = $('[name=asset-width]').val();
-            $W.pageInfo.slides[0].assets[0].height = $('[name=asset-height]').val();
-            $W.pageInfo.slides[0].assets[0].left = $('[name=asset-left]').val();
-            $W.pageInfo.slides[0].assets[0].top = $('[name=asset-top]').val();
             $.ajax({
                 url: 'handler.php',
                 type: 'post',
-                data: $W.pageInfo,
+                data: {
+                    title: $('[name=title]').val(),
+                    description: $('[name=description]').val(),
+                    slides: $W.pageInfo.slides,
+                    defaultBackground: $W.pageInfo.defaultBackground
+                },
                 success: function(result) {
                     disable = false;
                     window.location.href = "/";

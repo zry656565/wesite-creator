@@ -99,19 +99,20 @@ include('layout/header.php');
 			</div>
 			<div class="form-group">
 				<label for="asset-left">左边距</label>
-				<input type="text" class="form-control" name="asset-left" placeholder="请输入宽度">
+				<input type="text" class="form-control" name="asset-left" placeholder="请输入左边距">
 			</div>
 			<hr/>
 			<div class="form-group">
 				<label for="asset-height">高度</label>
-				<input type="text" class="form-control" id="asset-height" placeholder="请输入高度">
+				<input type="text" class="form-control" name="asset-height" placeholder="请输入高度">
 			</div>
 			<div class="form-group">
 				<label for="asset-right">上边距</label>
-				<input type="text" class="form-control" id="asset-right" placeholder="请输入高度">
+				<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距">
 			</div>
 		</div>
 		<div class="btn-group final">
+			<button type="button" class="btn btn-primary refresh">刷新预览图</button>
 			<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
 			<?php if ($update) { ?>
 				<button type="button" class="btn btn-danger delete">删除</button>
