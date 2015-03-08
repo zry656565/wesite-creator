@@ -11,6 +11,43 @@ if ($update) {
 	$page->load($id);
 	if (!$page->id) {
 		$update = false;
+	} else {
+		// 准备起始数据
+		$slides = $page->slides();
+		$firstSlide = $slides[0];
+		$firstAsset = $firstSlide->assets()[0];
+
+		$pageJson = array(
+			'id' => $page->id,
+			'title' => $page->pageName,
+			'description' => $page->description,
+			'defaultBackground' => $page->bg,
+			'bgm' => $page->bgm,
+			'slides' => array(),
+		);
+		foreach ($slides as $slide) {
+			$assets = $slide->assets();
+			$assetArr = array();
+			foreach ($assets as $asset) {
+				$assetArr[] = array(
+					'id' => $asset->id,
+					'src' => $asset->src,
+					'width' => $asset->width,
+					'height' => $asset->height,
+					'left' => $asset->left,
+					'top' => $asset->top,
+					'slideId' => $asset->slideId,
+				);
+			}
+			$slideJson = array(
+				'id' => $slide->id,
+				'background' => $slide->background,
+				'pageId' => $slide->pageId,
+				'assets' => $assetArr,
+			);
+			$pageJson['slides'][] = $slideJson;
+		}
+		$pageJson = json_encode($pageJson);
 	}
 }
 ?>
@@ -39,7 +76,6 @@ include('layout/header.php');
 ?>
 
 <div class="container">
-
 	<div class="preview col-lg-6 col-md-6">
 		<h2>预览图</h2>
 		<p>注意：预览图仅供参考，实际效果请在真机上查看。</p>
@@ -80,7 +116,7 @@ include('layout/header.php');
 				<label for="slide-background">本页背景</label>
 				<input type="file" name="slide-background">
 				<button id="slide-background-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="help-block"><?= $update && $page->bg ? '已上传本页背景：'.$page->bg : '' ?></p>
+				<p class="help-block"><?= $update && $firstSlide->background ? '已上传本页背景：'.$firstSlide->background : '' ?></p>
 			</div>
 			<hr/>
 			<ul class="nav nav-pills nav-slides">
@@ -91,24 +127,24 @@ include('layout/header.php');
 				<label for="asset-src">资源图片</label>
 				<input type="file" name="asset-src">
 				<button id="asset-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="help-block"><?= $update && $page->bg ? '已上传资源图片：'.$page->bg : '' ?></p>
+				<p class="help-block"><?= $update && $firstAsset->src ? '已上传资源图片：'.$firstAsset->src : '' ?></p>
 			</div>
 			<div class="form-group">
 				<label for="asset-width">宽度</label>
-				<input type="text" class="form-control" name="asset-width" placeholder="请输入宽度">
+				<input type="text" class="form-control" name="asset-width" placeholder="请输入宽度" value="<?= $update && $firstAsset->width ? $firstAsset->width : '' ?>">
 			</div>
 			<div class="form-group">
 				<label for="asset-left">左边距</label>
-				<input type="text" class="form-control" name="asset-left" placeholder="请输入左边距">
+				<input type="text" class="form-control" name="asset-left" placeholder="请输入左边距" value="<?= $update && $firstAsset->left ? $firstAsset->left : '' ?>">
 			</div>
 			<hr/>
 			<div class="form-group">
 				<label for="asset-height">高度</label>
-				<input type="text" class="form-control" name="asset-height" placeholder="请输入高度">
+				<input type="text" class="form-control" name="asset-height" placeholder="请输入高度" value="<?= $update && $firstAsset->height ? $firstAsset->height : '' ?>">
 			</div>
 			<div class="form-group">
 				<label for="asset-right">上边距</label>
-				<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距">
+				<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距" value="<?= $update && $firstAsset->top ? $firstAsset->top : '' ?>">
 			</div>
 		</div>
 		<div class="btn-group final">
@@ -125,18 +161,12 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.1.0"></script>
+<script src="assets/javascript/create.js?v=1.1.1"></script>
 <?php
 if ($update) { ?>
 <script>
-	$('.iphone').append('<img class="background" src="<?= $page->bg ?>"/>');
-	$W.pageInfo = {
-		title: "<?= $page->pageName ?>",
-		description: "<?= $page->description ?>",
-		defaultBackground: "<?= $page->bg ?>",
-		bgm: "<?= $page->bgm ?>",
-		id: "<?= $page->id ?>"
-	};
+	$W.pageInfo = $.extend($W.pageInfo, JSON.parse('<?= $pageJson ?>'));
+	$W.pageInfo.refresh();
 
 	var delDisable = false;
 	$('.btn.delete').click(function() {

@@ -27,7 +27,7 @@ if (isset($_POST['id'])) {
 	$pageId = $page->insert(true);
 	foreach ($_POST['slides'] as $slide) {
 		$s = new Slide();
-		$s->background = "'{$slide->background}'";
+		$s->background = "'{$slide['background']}'";
 		$s->pageId = $pageId;
 		$slideId = $s->insert(true);
 		foreach ($slide['assets'] as $asset) {
