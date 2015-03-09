@@ -39,7 +39,7 @@ $W.pageInfo = {
                 };
             }
             currentSlide.background = bg;
-        } else if (isSlideBackground) {
+        } else {
             this.defaultBackground = bg;
         }
 
@@ -160,6 +160,7 @@ $W.pageInfo = {
             if (disable) return;
 
             var title = $('input[name=title]').val();
+            $W.pageInfo.saveAsset();
 
             if (!title) {
                 alert('请填写本页面的标题');
@@ -171,10 +172,11 @@ $W.pageInfo = {
                 url: 'handler.php',
                 type: 'post',
                 data: {
+                    id: $W.pageInfo.id,
                     title: title,
                     description: $('input[name=description]').val(),
                     slides: $W.pageInfo.slides,
-                    defaultBackground: $W.pageInfo.defaultBackground,
+                    bg: $W.pageInfo.defaultBackground,
                     bgm: $W.pageInfo.bgm
                 },
                 success: function(result) {

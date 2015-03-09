@@ -2,41 +2,40 @@
 require_once('model/wesiteModel.php');
 
 $page = new Page();
-foreach ($_POST as $key => $value) {
-	switch($key) {
-		case 'title':
-			$page->pageName = "'$value'";
-			break;
-		case 'description':
-			$page->description = "'$value'";
-			break;
-		case 'defaultBackground':
-			$page->bg = "'$value'";
-			break;
-		case 'bgm':
-			$page->bgm = "'$value'";
-			break;
-		case 'id':
-			$page->id = "$value";
-			break;
-	}
-}
+$page->pageName = "'{$_POST['title']}'";
+$page->description = "'{$_POST['description']}'";
+$page->bg = "'{$_POST['bg']}'";
+$page->bgm = "'{$_POST['bgm']}'";
+
 if (isset($_POST['id'])) {
+	$page->id = $_POST['id'];
 	$page->update();
+	$pageId = $page->id;
 } else {
 	$pageId = $page->insert(true);
-	foreach ($_POST['slides'] as $slide) {
-		$s = new Slide();
-		$s->background = "'{$slide['background']}'";
+}
+foreach ($_POST['slides'] as $slide) {
+	$s = new Slide();
+	$s->background = "'{$slide['background']}'";
+	if ($slide['id']) {
+		$s->id = $slide['id'];
+		$s->update();
+		$slideId = $s->id;
+	} else {
 		$s->pageId = $pageId;
 		$slideId = $s->insert(true);
-		foreach ($slide['assets'] as $asset) {
-			$a = new Asset();
-			$a->src = "'{$asset['src']}'";
-			$a->width = "'{$asset['width']}'";
-			$a->height = "'{$asset['height']}'";
-			$a->top = "'{$asset['top']}'";
-			$a->left = "'{$asset['left']}'";
+	}
+	foreach ($slide['assets'] as $asset) {
+		$a = new Asset();
+		$a->src = "'{$asset['src']}'";
+		$a->width = "'{$asset['width']}'";
+		$a->height = "'{$asset['height']}'";
+		$a->top = "'{$asset['top']}'";
+		$a->left = "'{$asset['left']}'";
+		if ($asset['id']) {
+			$a->id = $asset['id'];
+			$a->update();
+		} else {
 			$a->slideId = $slideId;
 			$a->insert();
 		}
