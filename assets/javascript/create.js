@@ -70,6 +70,11 @@ $W.pageInfo = {
         } else {
             $('.slide-bg.help-block').html('');
         }
+        $('.nav-assets').html('<li class="active" data-asset-id="1"><a>A1</a></li>');
+        for (var i = 2; i <= self.slides[id].assets.length; i++) {
+            $('.nav-assets').append('<li data-asset-id="'+ i +'"><a>A'+ i +'</a></li>');
+        }
+        $('.nav-assets').append('<li class="add"><a id="add-asset">+</a></li>');
         self.showAsset();
         self.refresh();
     },

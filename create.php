@@ -129,7 +129,7 @@ include('layout/header.php');
 				<li class="active" data-asset-id="1"><a>A1</a></li>
 				<?php
 				if ($update) {
-					for ($i = 2; $i <= count($assets); $i++) {
+					for ($i = 2; $i <= count($firstSlide->assets()); $i++) {
 						echo '<li data-asset-id="'. $i .'"><a>A'. $i .'</a></li>';
 					}
 				} ?>
@@ -171,7 +171,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.2.0"></script>
+<script src="assets/javascript/create.js?v=1.2.1"></script>
 <?php
 if ($update) { ?>
 <script>
