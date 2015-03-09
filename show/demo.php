@@ -22,7 +22,7 @@
 	<script type="text/javascript" src="../assets/library/fancyBox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<?php
 	if (isset($id) && $id === 1) { ?>
-		<script src="../assets/javascript/demo/1.js?v=1.1.4"></script>
+		<script src="../assets/javascript/demo/1.js?v=1.1.5"></script>
 	<?php
 	} ?>
 
@@ -57,7 +57,7 @@
 				<img class="background" src="<?= $slide['background'] ?>" />
 				<?php
 				if (isset($slide['asset'])) { ?>
-				<a class="fancybox-link" data-fancybox-type="iframe" href="<?= $slide['link'] ?>">
+				<a class="fancybox-link" data-fancybox-type="iframe" href="<?= $slide['link'] ?>" <?= isset($slide['link_jump']) ? 'data-jump' : '' ?>>
 <!--					<a class="fancybox-link" href="#fancybox---><?//= $id ?><!--">-->
 					<?php
 					foreach ($slide['asset'] as $asset) { ?>
