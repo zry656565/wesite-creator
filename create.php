@@ -15,7 +15,8 @@ if ($update) {
 		// 准备起始数据
 		$slides = $page->slides();
 		$firstSlide = $slides[0];
-		$firstAsset = $firstSlide->assets()[0];
+		$assets = $firstSlide->assets();
+		$firstAsset = $assets[0];
 
 		$pageJson = array(
 			'id' => $page->id,
@@ -171,7 +172,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.2.1"></script>
+<script src="assets/javascript/create.js?v=1.2.2"></script>
 <?php
 if ($update) { ?>
 <script>
