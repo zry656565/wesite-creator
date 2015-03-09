@@ -15,18 +15,7 @@ $W.pageInfo = {
     defaultBackground: null,
     currentSlide: 0,
     currentAsset: 0,
-    pushAsset: function(asset) { this.slides[this.currentSlide].assets.push(asset); },
-    saveAsset: function() {
-        var asset = this.getCurrentAsset();
-        if (asset) {
-            asset.width = $('input[name="asset-width"]').val();
-            asset.height = $('input[name="asset-height"]').val();
-            asset.top = $('input[name="asset-top"]').val();
-            asset.left = $('input[name="asset-left"]').val();
-        }
-    },
-    getCurrentAsset: function() { return this.slides[this.currentSlide].assets[this.currentAsset]; },
-    getAssets: function() { return this.slides[this.currentSlide].assets; },
+    // method of slide
     setBackground: function(bg, isSlideBackground) {
         var currentSlide = this.slides[this.currentSlide],
             $preview;
@@ -56,6 +45,80 @@ $W.pageInfo = {
     getBackground: function() {
         var currentSlide = this.slides[this.currentSlide];
         return (currentSlide && currentSlide.background) || this.defaultBackground;
+    },
+    clearSlide: function() {
+        $('[name="slide-background"]').val();
+        $('.slide-bg.help-block').html('');
+    },
+    changeSlide: function() {
+        var self = $W.pageInfo,
+            $this = $(this),
+            id = parseInt($this.attr('data-slide-id'), 10) - 1;
+
+        if ($this.hasClass('active')) {
+            return;
+        }
+
+        self.saveAsset();
+        self.clearAsset();
+        self.currentAsset = 0;
+        self.currentSlide = id;
+        $('.nav-slides .active').removeClass('active');
+        $('.nav-slides [data-slide-id="'+ (id + 1) +'"]').addClass('active');
+        if (self.slides[id].background) {
+            $('.slide-bg.help-block').html('已上传本页背景：' + self.slides[id].background);
+        } else {
+            $('.slide-bg.help-block').html('');
+        }
+        self.showAsset();
+        self.refresh();
+    },
+    // method of asset
+    pushAsset: function(asset) { this.slides[this.currentSlide].assets.push(asset); },
+    saveAsset: function() {
+        var asset = this.getCurrentAsset();
+        if (asset) {
+            asset.width = $('input[name="asset-width"]').val();
+            asset.height = $('input[name="asset-height"]').val();
+            asset.top = $('input[name="asset-top"]').val();
+            asset.left = $('input[name="asset-left"]').val();
+        }
+    },
+    getCurrentAsset: function() { return this.slides[this.currentSlide].assets[this.currentAsset]; },
+    getAssets: function() { return this.slides[this.currentSlide].assets; },
+    clearAsset: function() {
+        $('[name|="asset"]').val('');
+        $('.asset.help-block').empty();
+    },
+    showAsset: function() {
+        var current = $W.pageInfo.getCurrentAsset();
+        if (current) {
+            $('[name="asset-width"]').val(current.width);
+            $('[name="asset-height"]').val(current.height);
+            $('[name="asset-left"]').val(current.left);
+            $('[name="asset-top"]').val(current.top);
+            $('.asset.help-block').html('已上传资源图片：' + current.src);
+        }
+    },
+    changeAsset: function() {
+        var self = $W.pageInfo,
+            $this = $(this),
+            id = parseInt($this.attr('data-asset-id'), 10) - 1,
+            asset = self.getCurrentAsset();
+
+        if ($this.hasClass('active')) {
+            return;
+        } else if (!asset) {
+            alert('请将当前资源上传后，再跳转到别的页面');
+            return;
+        }
+
+        self.refresh();
+        self.clearAsset();
+        $('.nav-assets .active').removeClass('active');
+        self.currentAsset = id;
+        $('.nav-assets [data-asset-id="'+ (id + 1) +'"]').addClass('active');
+        self.showAsset();
     },
     refresh: function() {
         var self = $W.pageInfo,
@@ -151,6 +214,45 @@ $W.pageInfo = {
                 $('.music-upload').html('重新上传');
             })
         );
+
+        $('#add-asset').click(function() {
+            var W = $W.pageInfo,
+                asset = W.getCurrentAsset();
+            if (!asset) {
+                alert('请将当前资源上传后，再创建下一个资源');
+                return;
+            }
+            W.clearAsset();
+            $('.nav-assets .active').removeClass('active');
+            W.currentAsset = W.getAssets().length;
+            $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (W.currentAsset + 1) +'">' +
+                '<a>A'+ (W.currentAsset + 1) +'</a></li>');
+            $('.nav-assets .active').click($W.pageInfo.changeAsset);
+        });
+
+        $('.nav-assets li').not('.add').click($W.pageInfo.changeAsset);
+
+        $('#add-slide').click(function() {
+            var W = $W.pageInfo;
+
+            W.clearSlide();
+            W.clearAsset();
+            W.currentSlide = W.slides.length;
+            W.slides.push({
+                background: null,
+                assets: []
+            });
+            W.refresh();
+
+            $('.nav-slides .active').removeClass('active');
+            $('.nav-assets').html('<li class="active" data-asset-id="1"><a>A1</a></li>' +
+                '<li class="add"><a id="add-asset">+</a></li>');
+            $('.nav-slides li:last-child').before('<li class="active" data-slide-id="'+ (W.currentSlide + 1) +'">' +
+            '<a>P'+ (W.currentSlide + 1) +'</a></li>');
+            $('.nav-slides .active').click($W.pageInfo.changeSlide);
+        });
+
+        $('.nav-slides li').not('.add').click($W.pageInfo.changeSlide);
 
         $('.btn.refresh').click($W.pageInfo.refresh);
 

@@ -10,7 +10,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="assets/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="assets/stylesheet/wesite.css?v=1.1.0" rel="stylesheet">
+	<link href="assets/stylesheet/wesite.css?v=1.1.1" rel="stylesheet">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>

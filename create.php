@@ -108,26 +108,38 @@ include('layout/header.php');
 			<p class="help-block"><?= $update && $page->bg ? '已上传背景图片：'.$page->bg : '默认背景图片，请上传宽高比为2:3左右的背景图片' ?></p>
 		</div>
 		<ul class="nav nav-tabs nav-slides">
-			<li class="active"><a href="#">P1</a></li>
-			<li class="add"><a href="#">+</a></li>
+			<li data-slide-id="1" class="active"><a>P1</a></li>
+			<?php
+			if ($update) {
+				for ($i = 2; $i <= count($slides); $i++) {
+					echo '<li data-slide-id="'. $i .'"><a>P'. $i .'</a></li>';
+				}
+			} ?>
+			<li class="add"><a id="add-slide">+</a></li>
 		</ul>
 		<div class="slide-content form-inline">
 			<div class="form-group">
 				<label for="slide-background">本页背景</label>
 				<input type="file" name="slide-background">
 				<button id="slide-background-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="help-block"><?= $update && $firstSlide->background ? '已上传本页背景：'.$firstSlide->background : '' ?></p>
+				<p class="slide-bg help-block"><?= $update && $firstSlide->background ? '已上传本页背景：'.$firstSlide->background : '' ?></p>
 			</div>
 			<hr/>
-			<ul class="nav nav-pills nav-slides">
-				<li class="active"><a href="#">A1</a></li>
-				<li class="add"><a href="#">+</a></li>
+			<ul class="nav nav-pills nav-assets">
+				<li class="active" data-asset-id="1"><a>A1</a></li>
+				<?php
+				if ($update) {
+					for ($i = 2; $i <= count($assets); $i++) {
+						echo '<li data-asset-id="'. $i .'"><a>A'. $i .'</a></li>';
+					}
+				} ?>
+				<li class="add"><a id="add-asset">+</a></li>
 			</ul>
 			<div class="form-group">
 				<label for="asset-src">资源图片</label>
 				<input type="file" name="asset-src">
 				<button id="asset-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="help-block"><?= $update && $firstAsset->src ? '已上传资源图片：'.$firstAsset->src : '' ?></p>
+				<p class="asset help-block"><?= $update && $firstAsset->src ? '已上传资源图片：'.$firstAsset->src : '' ?></p>
 			</div>
 			<div class="form-group">
 				<label for="asset-width">宽度</label>
@@ -150,9 +162,7 @@ include('layout/header.php');
 		<div class="btn-group final">
 			<button type="button" class="btn btn-primary refresh">刷新预览图</button>
 			<button type="button" class="btn btn-success post"><?= $update ? '修改' : '发布' ?></button>
-			<?php if ($update) { ?>
-				<button type="button" class="btn btn-danger delete">删除</button>
-			<?php } ?>
+<!--			<button type="button" class="btn btn-danger asset-delete">删除当前资源</button>-->
 		</div>
 	</div>
 
@@ -161,7 +171,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.1.1"></script>
+<script src="assets/javascript/create.js?v=1.2.0"></script>
 <?php
 if ($update) { ?>
 <script>
