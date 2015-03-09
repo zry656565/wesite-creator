@@ -288,7 +288,7 @@ $W.pageInfo = {
                 },
                 success: function(result) {
                     disable = false;
-                    //window.location.href = "/";
+                    window.location.href = "/";
                 },
                 error: function(result) {
                     alert('与服务器通信时发生错误。');
