@@ -30,30 +30,17 @@ body {
 }
 .swiper-slide .sub {
   position: absolute;
-  width: 80%;
-  left: 10%;
-}
-.swiper-slide .top {
-  height: 10%;
-  top: 5%;
-}
-.swiper-slide .header {
-  top: 20%;
-  height: 15%;
-}
-.swiper-slide .body {
-  top: 40%;
-  height: 40%;
-}
-.swiper-slide .footer {
-  top: 85%;
-  height: 10%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
 }
 .swiper-slide .music-icon {
   width: 32px;
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 2;
 }
 .swiper-slide .background {
   width: 100%;

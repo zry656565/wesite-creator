@@ -24,13 +24,13 @@ if (!$page->id) {
 	<meta name="format-detection" content="telephone=no">
 	<meta name="description" content="<?= $page->description ?>">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
-	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.0.3">
+	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.1.0">
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/velocity/velocity.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
-	<script src="../assets/javascript/wesite.js?v=1.0.3"></script>
+	<script src="../assets/javascript/wesite.js?v=1.1.0"></script>
 
 	<!-- 百度统计 -->
 	<script>
@@ -56,14 +56,26 @@ if (!$page->id) {
 <div class="swiper-container">
 	<div class="swiper-wrapper">
 		<?php
-//		foreach ($data['slides'] as $slide) { ?>
-			<div class="swiper-slide">
-				<img class="music-icon" src="../assets/images/music.png"/>
-				<img class="background" src="<?= $page->bg ?>" />
+		$id = 1;
+		foreach ($page->slides() as $slide) { ?>
+			<div class="swiper-slide" data-id="<?= $id ?>">
+				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
+				<img class="background" src="<?= $slide->background ? $slide->background : $page->bg ?>" />
+				<?php
+				foreach ($slide->assets() as $asset) { ?>
+					<img class="sub" src="<?= $asset->src ?>"
+						 style="width: <?= $asset->width ?>%;
+							 height: <?= $asset->height ?>%;
+							 left: <?= $asset->left ?>%;
+							 top: <?= $asset->top ?>%;"/>
+				<?php
+				}
+				?>
 				<img class="arrow" src="../assets/images/arrow.gif" />
 			</div>
-		<?php
-//		}
+			<?php
+			$id++;
+		}
 		?>
 	</div>
 </div>

@@ -44,7 +44,6 @@ $(function(){
             play();
             $('body').on('touchstart', play);
 
-
             //bind play / pause event
             $('.music-icon').on('touchend', function() {
                 if (music.paused) {
@@ -54,7 +53,13 @@ $(function(){
                     $('.music-icon').css('opacity', 0.5);
                     music.pause();
                 }
-            })
+            });
+            $('[data-id="1"] .sub').velocity({ opacity: 1 }, 1200);
+            $('.fancybox-link').fancybox();
+        },
+        onSlideChangeEnd: function(swiper) {
+            var id = swiper.activeIndex;
+            $('[data-id="' + id + '"] .sub').velocity({ opacity: 1 }, 1200);
         }
     });
 });
