@@ -44,6 +44,7 @@ if ($update) {
 				'id' => $slide->id,
 				'background' => $slide->background,
 				'pageId' => $slide->pageId,
+				'link' => $slide->link,
 				'assets' => $assetArr,
 			);
 			$pageJson['slides'][] = $slideJson;
@@ -124,6 +125,10 @@ include('layout/header.php');
 				<input type="file" name="slide-background">
 				<button id="slide-background-upload" class="btn btn-default btn-sm">上传</button>
 				<p class="slide-bg help-block"><?= $update && $firstSlide->background ? '已上传本页背景：'.$firstSlide->background : '' ?></p>
+			</div>
+			<div class="form-group">
+				<label for="slide-link">本页链接</label>
+				<input type="text" class="form-control" name="slide-link" placeholder="请输入链接地址" value="<?= $update && $firstSlide->link ? $firstSlide->link : '' ?>"/>
 			</div>
 			<hr/>
 			<ul class="nav nav-pills nav-assets">

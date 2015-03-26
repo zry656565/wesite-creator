@@ -59,6 +59,7 @@ if (!$page->id) {
 		$id = 1;
 		foreach ($page->slides() as $slide) { ?>
 			<div class="swiper-slide" data-id="<?= $id ?>">
+				<?php if (isset($slide->link) && $slide !== '') echo '<a href="'. $slide->link .'">'; ?>
 				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
 				<img class="background" src="<?= $slide->background ? $slide->background : $page->bg ?>" />
 				<?php
@@ -72,6 +73,7 @@ if (!$page->id) {
 				}
 				?>
 				<img class="arrow" src="../assets/images/arrow.gif" />
+				<?php if (isset($slide->link) && $slide !== '') echo '</a>'; ?>
 			</div>
 			<?php
 			$id++;

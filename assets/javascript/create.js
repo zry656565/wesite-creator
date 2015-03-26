@@ -47,7 +47,8 @@ $W.pageInfo = {
         return (currentSlide && currentSlide.background) || this.defaultBackground;
     },
     clearSlide: function() {
-        $('[name="slide-background"]').val();
+        $('[name="slide-background"]').val('');
+        $('[name="slide-link"]').val('');
         $('.slide-bg.help-block').html('');
     },
     changeSlide: function() {
@@ -62,6 +63,7 @@ $W.pageInfo = {
         self.saveAsset();
         self.clearAsset();
         self.currentAsset = 0;
+        self.slides[self.currentSlide].link = $('[name="slide-link"]').val();
         self.currentSlide = id;
         $('.nav-slides .active').removeClass('active');
         $('.nav-slides [data-slide-id="'+ (id + 1) +'"]').addClass('active');
@@ -70,6 +72,7 @@ $W.pageInfo = {
         } else {
             $('.slide-bg.help-block').html('');
         }
+        $('[name="slide-link"]').val(self.slides[id].link);
         $('.nav-assets').html('<li class="active" data-asset-id="1"><a>A1</a></li>');
         for (var i = 2; i <= self.slides[id].assets.length; i++) {
             $('.nav-assets').append('<li data-asset-id="'+ i +'"><a>A'+ i +'</a></li>');
@@ -275,6 +278,7 @@ $W.pageInfo = {
             }
 
             disable = true;
+            $W.pageInfo.slides[$W.pageInfo.currentSlide].link = $('[name="slide-link"]').val();
             $.ajax({
                 url: 'handler.php',
                 type: 'post',

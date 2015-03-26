@@ -176,6 +176,7 @@ class Slide extends Data {
 				'id' => 'id',
 				'background' => 'background',
 				'pageId' => 'pageId',
+				'link' => 'link',
 			)
 		);
 		parent::init($options);
