@@ -1,5 +1,6 @@
 <?php
 require_once('model/wesiteModel.php');
+require_once('help/needLogin.php');
 $page = new Page();
 $pages = $page->find();
 ?>

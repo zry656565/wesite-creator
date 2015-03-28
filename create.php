@@ -1,5 +1,7 @@
 <?php
 require_once('help/upload.php');
+require_once('help/needLogin.php');
+
 $imgConfig = ImageConfig::getConfig('image');
 $musicConfig = ImageConfig::getConfig('music');
 

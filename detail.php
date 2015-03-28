@@ -1,5 +1,6 @@
 <?php
 require_once('model/wesiteModel.php');
+require_once('help/needLogin.php');
 
 if (!isset($_GET['id'])) {
 	include('404.php');
