@@ -39,6 +39,7 @@ if ($update) {
 					'height' => $asset->height,
 					'left' => $asset->left,
 					'top' => $asset->top,
+					'order' => $asset->order,
 					'slideId' => $asset->slideId,
 				);
 			}
@@ -165,6 +166,11 @@ include('layout/header.php');
 			<div class="form-group">
 				<label for="asset-right">上边距</label>
 				<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距" value="<?= $update && $firstAsset->top ? $firstAsset->top : '' ?>">
+			</div>
+			<hr/>
+			<div class="form-group">
+				<label for="asset-order">动画顺序（填0则无动画）</label>
+				<input type="text" class="form-control" name="asset-order" placeholder="请输入动画顺序" value="<?= $update && $firstAsset->order ? $firstAsset->order : '' ?>">
 			</div>
 		</div>
 		<div class="btn-group final">

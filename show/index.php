@@ -59,16 +59,17 @@ if (!$page->id) {
 		$id = 1;
 		foreach ($page->slides() as $slide) { ?>
 			<div class="swiper-slide" data-id="<?= $id ?>">
-				<?php if (isset($slide->link) && $slide !== '') echo '<a href="'. $slide->link .'">'; ?>
+				<?php if (isset($slide->link) && $slide->link !== '') echo '<a href="'. $slide->link .'">'; ?>
 				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
 				<img class="background" src="<?= $slide->background ? $slide->background : $page->bg ?>" />
 				<?php
 				foreach ($slide->assets() as $asset) { ?>
-					<img class="sub" src="<?= $asset->src ?>"
+					<img class="sub" src="<?= $asset->src ?>" data-order="<?= $asset->order ?>"
 						 style="width: <?= $asset->width ?>%;
 							 height: <?= $asset->height ?>%;
 							 left: <?= $asset->left ?>%;
-							 top: <?= $asset->top ?>%;"/>
+							 top: <?= $asset->top ?>%;
+							 <?= $asset->order == 0 ? 'opacity: 1;' : ''?>"/>
 				<?php
 				}
 				?>

@@ -90,6 +90,7 @@ $W.pageInfo = {
             asset.height = $('input[name="asset-height"]').val();
             asset.top = $('input[name="asset-top"]').val();
             asset.left = $('input[name="asset-left"]').val();
+            asset.order = $('input[name="asset-order"]').val();
         }
     },
     getCurrentAsset: function() { return this.slides[this.currentSlide].assets[this.currentAsset]; },
@@ -105,6 +106,7 @@ $W.pageInfo = {
             $('[name="asset-height"]').val(current.height);
             $('[name="asset-left"]').val(current.left);
             $('[name="asset-top"]').val(current.top);
+            $('[name="asset-order"]').val(current.order);
             $('.asset.help-block').html('已上传资源图片：' + current.src);
         }
     },

@@ -25,6 +25,35 @@ $(function(){
     };
     var target = document.getElementById('spinner');
     var spinner = new Spinner(opts).spin(target);
+    var animates = function(id) {
+        var assets = $('[data-id="' + id + '"] .sub');
+        assets = Array.prototype.filter.call(assets, function(a) {
+            return parseInt($(a).attr('data-order'), 10) > 0;
+        });
+        Array.prototype.sort.call(assets, function(a, b) {
+            return parseInt($(a).attr('data-order'), 10) - parseInt($(b).attr('data-order'), 10);
+        });
+
+        if (assets.length > 0) {
+            var i = 0,
+                animate = function() {
+                    $.Velocity
+                        .animate($(assets).eq(i), { opacity: 1 }, 1200)
+                        .then(callback);
+                    if ($(assets).eq(i).attr('data-order') === $(assets).eq(i+1).attr('data-order')) {
+                        $(assets).eq(i+1).velocity({ opacity: 1 }, 1200);
+                        i++;
+                    }
+                },
+                callback = function(){
+                    if (++i < assets.length) {
+                        animate();
+                    }
+                };
+
+            animate();
+        }
+    };
 
     var mySwiper = $('.swiper-container').swiper({
         mode:'vertical',
@@ -54,12 +83,11 @@ $(function(){
                     music.pause();
                 }
             });
-            $('[data-id="1"] .sub').velocity({ opacity: 1 }, 1200);
+            animates(1);
             $('.fancybox-link').fancybox();
         },
         onSlideChangeEnd: function(swiper) {
-            var id = swiper.activeIndex;
-            $('[data-id="' + id + '"] .sub').velocity({ opacity: 1 }, 1200);
+            animates(swiper.activeIndex);
         }
     });
 });

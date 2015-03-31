@@ -145,7 +145,7 @@ class User extends Data {
 }
 
 class Asset extends Data {
-	public $id, $src, $width, $height, $top, $left, $slideId;
+	public $id, $src, $width, $height, $top, $left, $slideId, $order;
 
 	public function __construct() {
 		$options = array(
@@ -158,6 +158,7 @@ class Asset extends Data {
 				'height' => 'height',
 				'top' => 'top',
 				'left' => 'left_margin',
+				'order' => 'animate_order',
 				'slideId' => 'slide_id',
 			)
 		);
