@@ -78,10 +78,29 @@ $W.pageInfo = {
             $('.nav-assets').append('<li data-asset-id="'+ i +'"><a>A'+ i +'</a></li>');
         }
         $('.nav-assets').append('<li class="add"><a id="add-asset">+</a></li>');
+        self.bindAssetBtnEvent();
         self.showAsset();
         self.refresh();
     },
     // method of asset
+    bindAssetBtnEvent: function() {
+        var self = $W.pageInfo;
+        $('#add-asset').click(function() {
+            var asset = self.getCurrentAsset();
+            if (!asset) {
+                alert('请将当前资源上传后，再创建下一个资源');
+                return;
+            }
+            self.clearAsset();
+            $('.nav-assets .active').removeClass('active');
+            self.currentAsset = self.getAssets().length;
+            $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (W.currentAsset + 1) +'">' +
+            '<a>A'+ (self.currentAsset + 1) +'</a></li>');
+            $('.nav-assets .active').click(self.changeAsset);
+        });
+
+        $('.nav-assets li').not('.add').click(self.changeAsset);
+    },
     pushAsset: function(asset) { this.slides[this.currentSlide].assets.push(asset); },
     saveAsset: function() {
         var asset = this.getCurrentAsset();
@@ -225,23 +244,6 @@ $W.pageInfo = {
             })
         );
 
-        $('#add-asset').click(function() {
-            var W = $W.pageInfo,
-                asset = W.getCurrentAsset();
-            if (!asset) {
-                alert('请将当前资源上传后，再创建下一个资源');
-                return;
-            }
-            W.clearAsset();
-            $('.nav-assets .active').removeClass('active');
-            W.currentAsset = W.getAssets().length;
-            $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (W.currentAsset + 1) +'">' +
-                '<a>A'+ (W.currentAsset + 1) +'</a></li>');
-            $('.nav-assets .active').click($W.pageInfo.changeAsset);
-        });
-
-        $('.nav-assets li').not('.add').click($W.pageInfo.changeAsset);
-
         $('#add-slide').click(function() {
             var W = $W.pageInfo;
 
@@ -263,6 +265,8 @@ $W.pageInfo = {
         });
 
         $('.nav-slides li').not('.add').click($W.pageInfo.changeSlide);
+
+        $W.pageInfo.bindAssetBtnEvent();
 
         $('.btn.refresh').click($W.pageInfo.refresh);
 
