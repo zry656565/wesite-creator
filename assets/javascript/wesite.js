@@ -40,7 +40,7 @@ $(function(){
                     $.Velocity
                         .animate($(assets).eq(i), { opacity: 1 }, 1200)
                         .then(callback);
-                    if ($(assets).eq(i).attr('data-order') === $(assets).eq(i+1).attr('data-order')) {
+                    while ($(assets).eq(i).attr('data-order') === $(assets).eq(i+1).attr('data-order')) {
                         $(assets).eq(i+1).velocity({ opacity: 1 }, 1200);
                         i++;
                     }

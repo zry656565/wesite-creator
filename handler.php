@@ -33,7 +33,7 @@ foreach ($_POST['slides'] as $slide) {
 		$a->height = "'{$asset['height']}'";
 		$a->top = "'{$asset['top']}'";
 		$a->left = "'{$asset['left']}'";
-		$a->order = isset($asset['order']) ? $asset['order'] : 0;
+		$a->order = "'{$asset['order']}'";
 		if ($asset['id']) {
 			$a->id = $asset['id'];
 			$a->update();
