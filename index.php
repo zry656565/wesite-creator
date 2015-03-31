@@ -28,7 +28,7 @@ include('layout/header.php');
 	foreach ($pages as $page) { ?>
 		<div class="col-lg-3 col-md-3">
 			<a href="/detail.php?id=<?= $page->id ?>">
-			<div class="page" style="background-image: url(<?= $page->bg ?>); background-size: cover;">
+			<div class="page hideOverflow" style="background-image: url(<?= $page->bg ?>); background-size: cover;">
 				<?= $page->pageName ?>
 			</div>
 			</a>
