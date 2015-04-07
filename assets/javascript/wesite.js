@@ -84,7 +84,6 @@ $(function(){
                 }
             });
             animates(1);
-            $('.fancybox-link').fancybox();
         },
         onSlideChangeEnd: function(swiper) {
             animates(swiper.activeIndex);

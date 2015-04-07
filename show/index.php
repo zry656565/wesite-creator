@@ -30,7 +30,7 @@ if (!$page->id) {
 	<script src="../assets/library/velocity/velocity.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
-	<script src="../assets/javascript/wesite.js?v=1.1.0"></script>
+	<script src="../assets/javascript/wesite.js?v=1.2.0"></script>
 
 	<!-- 百度统计 -->
 	<script>

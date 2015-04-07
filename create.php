@@ -185,7 +185,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.2.2"></script>
+<script src="assets/javascript/create.js?v=1.3.0"></script>
 <?php
 if ($update) { ?>
 <script>
