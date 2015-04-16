@@ -133,6 +133,10 @@ include('layout/header.php');
 				<label for="slide-link">本页链接</label>
 				<input type="text" class="form-control" name="slide-link" placeholder="请输入链接地址" value="<?= $update && $firstSlide->link ? $firstSlide->link : '' ?>"/>
 			</div>
+			<br/>
+			<div class="form-group">
+				<button type="button" class="btn btn-xs btn-danger delete-slide">删除当前页面</button>
+			</div>
 			<hr/>
 			<ul class="nav nav-pills nav-assets">
 				<li class="active" data-asset-id="1"><a>A1</a></li>
@@ -171,6 +175,9 @@ include('layout/header.php');
 			<div class="form-group">
 				<label for="asset-order">动画顺序（填0则无动画）</label>
 				<input type="text" class="form-control" name="asset-order" placeholder="请输入动画顺序" value="<?= $update && $firstAsset->order ? $firstAsset->order : '' ?>">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-xs btn-danger delete-asset">删除当前资源图片</button>
 			</div>
 		</div>
 		<div class="btn-group final">

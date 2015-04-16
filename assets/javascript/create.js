@@ -15,6 +15,8 @@ $W.pageInfo = {
     defaultBackground: null,
     currentSlide: 0,
     currentAsset: 0,
+    removedSlides: [],
+    removedAssets: [],
     // method of slide
     setBackground: function(bg, isSlideBackground) {
         var currentSlide = this.slides[this.currentSlide],
@@ -81,6 +83,31 @@ $W.pageInfo = {
         self.bindAssetBtnEvent();
         self.showAsset();
         self.refresh();
+    },
+    removeSlide: function() {
+        var self = $W.pageInfo,
+            curSlide = self.slides[self.currentSlide],
+            $nav = $('.nav-slides'),
+            i;
+
+        if (curSlide.id) {
+            self.removedSlides.push(curSlide.id);
+            for (i = self.currentSlide; i < self.slides.length - 1; i++) {
+                var tmp = self.slides[i];
+                self.slides[i] = self.slides[i+1];
+                self.slides[i+1] = tmp;
+            }
+            self.slides.pop();
+            self.currentSlide += (self.currentSlide >= self.slides.length ?  -1 : 0);
+        }
+
+        //Modify DOM
+        $nav.find('[data-slide-id]').remove();
+        for (i = self.slides.length; i > 0; i--) {
+            $nav.prepend('<li data-slide-id="' + i + '"><a>P' + i  + '</a></li>');
+        }
+        $('.nav-slides li').not('.add').click($W.pageInfo.changeSlide);
+        $nav.find('[data-slide-id="' + (self.currentSlide + 1) + '"]').click();
     },
     // method of asset
     bindAssetBtnEvent: function() {
@@ -149,6 +176,7 @@ $W.pageInfo = {
         $('.nav-assets [data-asset-id="'+ (id + 1) +'"]').addClass('active');
         self.showAsset();
     },
+    removeAsset: function() {},
     refresh: function() {
         var self = $W.pageInfo,
             $preview = $('.iphone'),
@@ -268,6 +296,8 @@ $W.pageInfo = {
 
         $W.pageInfo.bindAssetBtnEvent();
 
+        $('.btn.delete-slide').click($W.pageInfo.removeSlide);
+        $('.btn.delete-asset').click($W.pageInfo.removeAsset);
         $('.btn.refresh').click($W.pageInfo.refresh);
 
         // 发布/保存页面
@@ -294,7 +324,9 @@ $W.pageInfo = {
                     description: $('input[name=description]').val(),
                     slides: $W.pageInfo.slides,
                     bg: $W.pageInfo.defaultBackground,
-                    bgm: $W.pageInfo.bgm
+                    bgm: $W.pageInfo.bgm,
+                    removedSlides: $W.pageInfo.removedSlides,
+                    removedAssets: $W.pageInfo.removedAssets
                 },
                 success: function(result) {
                     disable = false;

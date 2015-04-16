@@ -97,6 +97,9 @@ a {
 .final {
   margin: 10px 0 0;
 }
+.delete-slide {
+  margin: 5px 0 10px;
+}
 /* detail.php
  *============================*/
 #qrcode {

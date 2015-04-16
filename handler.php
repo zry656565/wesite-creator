@@ -7,6 +7,18 @@ $page->description = "'{$_POST['description']}'";
 $page->bg = "'{$_POST['bg']}'";
 $page->bgm = "'{$_POST['bgm']}'";
 
+//delete the useless slides and assets
+foreach ($_POST['removedSlides'] as $removedSlideId) {
+	$s = new Slide();
+	$s->id = $removedSlideId;
+	$s->delete(false);
+}
+foreach ($_POST['removedAssets'] as $removedAssetId) {
+	$a = new Asset();
+	$a->id = $removedAssetId;
+	$a->delete(false);
+}
+
 if (isset($_POST['id'])) {
 	$page->id = $_POST['id'];
 	$page->update();
