@@ -48,12 +48,24 @@ $W.pageInfo = {
         var currentSlide = this.slides[this.currentSlide];
         return (currentSlide && currentSlide.background) || this.defaultBackground;
     },
+    resetDeleteBtn: function() {
+        if ($('.nav-slides').find('[data-slide-id]').length <= 1) {
+            $('.btn.delete-slide').hide();
+        } else {
+            $('.btn.delete-slide').show();
+        }
+        if ($('.nav-assets').find('[data-asset-id]').length <= 1) {
+            $('.btn.delete-asset').hide();
+        } else {
+            $('.btn.delete-asset').show();
+        }
+    },
     clearSlide: function() {
         $('[name="slide-background"]').val('');
         $('[name="slide-link"]').val('');
         $('.slide-bg.help-block').html('');
     },
-    changeSlide: function() {
+    switchSlide: function() {
         var self = $W.pageInfo,
             $this = $(this),
             id = parseInt($this.attr('data-slide-id'), 10) - 1;
@@ -63,9 +75,20 @@ $W.pageInfo = {
         }
 
         self.saveAsset();
+        self.slides[self.currentSlide].link = $('[name="slide-link"]').val();
+        self.changeSlide($this);
+    },
+    changeSlide: function($this) {
+        var self = $W.pageInfo,
+            id;
+
+        if ($this.timeStamp > 0) { //it's a event object
+            $this = $(this);
+        }
+        id = parseInt($this.attr('data-slide-id'), 10) - 1;
+
         self.clearAsset();
         self.currentAsset = 0;
-        self.slides[self.currentSlide].link = $('[name="slide-link"]').val();
         self.currentSlide = id;
         $('.nav-slides .active').removeClass('active');
         $('.nav-slides [data-slide-id="'+ (id + 1) +'"]').addClass('active');
@@ -81,6 +104,7 @@ $W.pageInfo = {
         }
         $('.nav-assets').append('<li class="add"><a id="add-asset">+</a></li>');
         self.bindAssetBtnEvent();
+        self.resetDeleteBtn();
         self.showAsset();
         self.refresh();
     },
@@ -92,14 +116,15 @@ $W.pageInfo = {
 
         if (curSlide.id) {
             self.removedSlides.push(curSlide.id);
-            for (i = self.currentSlide; i < self.slides.length - 1; i++) {
-                var tmp = self.slides[i];
-                self.slides[i] = self.slides[i+1];
-                self.slides[i+1] = tmp;
-            }
-            self.slides.pop();
-            self.currentSlide += (self.currentSlide >= self.slides.length ?  -1 : 0);
         }
+
+        for (i = self.currentSlide; i < self.slides.length - 1; i++) {
+            var tmp = self.slides[i];
+            self.slides[i] = self.slides[i+1];
+            self.slides[i+1] = tmp;
+        }
+        self.slides.pop();
+        self.currentSlide += (self.currentSlide >= self.slides.length ?  -1 : 0);
 
         //Modify DOM
         $nav.find('[data-slide-id]').remove();
@@ -121,7 +146,7 @@ $W.pageInfo = {
             self.clearAsset();
             $('.nav-assets .active').removeClass('active');
             self.currentAsset = self.getAssets().length;
-            $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (W.currentAsset + 1) +'">' +
+            $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (self.currentAsset + 1) +'">' +
             '<a>A'+ (self.currentAsset + 1) +'</a></li>');
             $('.nav-assets .active').click(self.changeAsset);
         });
@@ -289,16 +314,19 @@ $W.pageInfo = {
                 '<li class="add"><a id="add-asset">+</a></li>');
             $('.nav-slides li:last-child').before('<li class="active" data-slide-id="'+ (W.currentSlide + 1) +'">' +
             '<a>P'+ (W.currentSlide + 1) +'</a></li>');
-            $('.nav-slides .active').click($W.pageInfo.changeSlide);
+            $('.nav-slides .active').click($W.pageInfo.switchSlide);
+
+            self.resetDeleteBtn();
         });
 
-        $('.nav-slides li').not('.add').click($W.pageInfo.changeSlide);
+        $('.nav-slides li').not('.add').click($W.pageInfo.switchSlide);
 
         $W.pageInfo.bindAssetBtnEvent();
 
         $('.btn.delete-slide').click($W.pageInfo.removeSlide);
         $('.btn.delete-asset').click($W.pageInfo.removeAsset);
         $('.btn.refresh').click($W.pageInfo.refresh);
+        $W.pageInfo.resetDeleteBtn();
 
         // 发布/保存页面
         var disable = false;
