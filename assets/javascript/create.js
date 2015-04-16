@@ -131,7 +131,7 @@ $W.pageInfo = {
         for (i = self.slides.length; i > 0; i--) {
             $nav.prepend('<li data-slide-id="' + i + '"><a>P' + i  + '</a></li>');
         }
-        $('.nav-slides li').not('.add').click($W.pageInfo.changeSlide);
+        $('.nav-slides li').not('.add').click(self.changeSlide);
         $nav.find('[data-slide-id="' + (self.currentSlide + 1) + '"]').click();
     },
     // method of asset
@@ -149,6 +149,7 @@ $W.pageInfo = {
             $('.nav-assets li:last-child').before('<li class="active" data-asset-id="'+ (self.currentAsset + 1) +'">' +
             '<a>A'+ (self.currentAsset + 1) +'</a></li>');
             $('.nav-assets .active').click(self.changeAsset);
+            self.resetDeleteBtn();
         });
 
         $('.nav-assets li').not('.add').click(self.changeAsset);
@@ -200,8 +201,36 @@ $W.pageInfo = {
         self.currentAsset = id;
         $('.nav-assets [data-asset-id="'+ (id + 1) +'"]').addClass('active');
         self.showAsset();
+        self.resetDeleteBtn();
     },
-    removeAsset: function() {},
+    removeAsset: function() {
+        var self = $W.pageInfo,
+            curAsset = self.getCurrentAsset(),
+            assets = self.getAssets(),
+            $nav = $('.nav-assets'),
+            i;
+
+        if (curAsset.id) {
+            self.removedAssets.push(curAsset.id);
+        }
+
+        for (i = self.currentAsset; i < assets.length - 1; i++) {
+            var tmp = assets[i];
+            assets[i] = assets[i+1];
+            assets[i+1] = tmp;
+        }
+        assets.pop();
+        self.currentAsset += (self.currentAsset >= assets.length ?  -1 : 0);
+
+        //Modify DOM
+        $nav.find('[data-asset-id]').remove();
+        for (i = assets.length; i > 0; i--) {
+            $nav.prepend('<li data-asset-id="' + i + '"><a>A' + i  + '</a></li>');
+        }
+        self.showAsset();
+        $nav.find('[data-asset-id]').click(self.changeAsset);
+        $nav.find('[data-asset-id="' + (self.currentSlide + 1) + '"]').click();
+    },
     refresh: function() {
         var self = $W.pageInfo,
             $preview = $('.iphone'),
