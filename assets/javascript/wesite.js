@@ -62,9 +62,11 @@ $(function(){
 
         wiper = function(id) {
             var $blurBg = $('.blur-bg[data-id="'+ id +'"]');
-            if ($blurBg.length === 0) {
+            if ($blurBg.length === 0 || $blurBg.attr('data-hide')) {
                 return false;
             }
+            $blurBg.attr('data-hide', true);
+            $canvas.show();
             var ctx = $canvas[0].getContext('2d'),
                 img = new Image();
 
