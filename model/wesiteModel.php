@@ -167,7 +167,7 @@ class Asset extends Data {
 }
 
 class Slide extends Data {
-	public $id, $background, $pageId;
+	public $id, $background, $blurBackground, $pageId, $link;
 
 	public function __construct() {
 		$options = array(
@@ -176,6 +176,7 @@ class Slide extends Data {
 			'columns' => array(
 				'id' => 'id',
 				'background' => 'background',
+				'blurBackground' => 'blurBackground',
 				'pageId' => 'pageId',
 				'link' => 'link',
 			)

@@ -9,6 +9,7 @@ $W.pageInfo = {
     slides: [
         {
             background: null,
+            blurBackground: null,
             assets: []
         }
     ],
@@ -26,6 +27,7 @@ $W.pageInfo = {
             if (!currentSlide) {
                 currentSlide = this.slides[this.currentSlide] = {
                     background: null,
+                    blurBackground: null,
                     assets: []
                 };
             }
@@ -43,6 +45,18 @@ $W.pageInfo = {
                 $preview.find('.background').attr('src', bg);
             }
         }
+    },
+    setBlurBackground: function(bg) {
+        var currentSlide = this.slides[this.currentSlide];
+
+        if (!currentSlide) {
+            currentSlide = this.slides[this.currentSlide] = {
+                background: null,
+                blurBackground: null,
+                assets: []
+            };
+        }
+        currentSlide.blurBackground = bg;
     },
     getBackground: function() {
         var currentSlide = this.slides[this.currentSlide];
@@ -62,8 +76,10 @@ $W.pageInfo = {
     },
     clearSlide: function() {
         $('[name="slide-background"]').val('');
+        $('[name="slide-blurBackground"]').val('');
         $('[name="slide-link"]').val('');
         $('.slide-bg.help-block').html('');
+        $('.slide-blurBg.help-block').html('');
     },
     switchSlide: function() {
         var self = $W.pageInfo,
@@ -96,6 +112,11 @@ $W.pageInfo = {
             $('.slide-bg.help-block').html('已上传本页背景：' + self.slides[id].background);
         } else {
             $('.slide-bg.help-block').html('');
+        }
+        if (self.slides[id].blurBackground) {
+            $('.slide-blurBg.help-block').html('已上传模糊背景：' + self.slides[id].blurBackground);
+        } else {
+            $('.slide-blurBg.help-block').html('');
         }
         $('[name="slide-link"]').val(self.slides[id].link);
         $('.nav-assets').html('<li class="active" data-asset-id="1"><a>A1</a></li>');
@@ -305,6 +326,16 @@ $W.pageInfo = {
             })
         );
 
+        $('#slide-blurBackground-upload').click(
+            uploadCallback('image', 'slide-blurBackground', function(response){
+                response = JSON.parse(response);
+                var bg = 'http://women-image.b0.upaiyun.com' + response.url;
+                $W.pageInfo.setBlurBackground(bg);
+                $('#slide-blurBackground-upload + .help-block').html('已上传背景：' + bg);
+                $('#slide-blurBackground-upload').html('重新上传');
+            })
+        );
+
         $('#asset-upload').click(
             uploadCallback('image', 'asset-src', function(response){
                 response = JSON.parse(response);
@@ -345,7 +376,7 @@ $W.pageInfo = {
             '<a>P'+ (W.currentSlide + 1) +'</a></li>');
             $('.nav-slides .active').click($W.pageInfo.switchSlide);
 
-            self.resetDeleteBtn();
+            W.resetDeleteBtn();
         });
 
         $('.nav-slides li').not('.add').click($W.pageInfo.switchSlide);
@@ -387,7 +418,7 @@ $W.pageInfo = {
                 },
                 success: function(result) {
                     disable = false;
-                    window.location.href = "/";
+                    //window.location.href = "/";
                 },
                 error: function(result) {
                     alert('与服务器通信时发生错误。');

@@ -29,6 +29,7 @@ if (isset($_POST['id'])) {
 foreach ($_POST['slides'] as $slide) {
 	$s = new Slide();
 	$s->background = "'{$slide['background']}'";
+	$s->blurBackground = "'{$slide['blurBackground']}'";
 	$s->link = "'{$slide['link']}'";
 	if ($slide['id']) {
 		$s->id = $slide['id'];

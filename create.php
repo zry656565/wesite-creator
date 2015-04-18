@@ -46,6 +46,7 @@ if ($update) {
 			$slideJson = array(
 				'id' => $slide->id,
 				'background' => $slide->background,
+				'blurBackground' => $slide->blurBackground,
 				'pageId' => $slide->pageId,
 				'link' => $slide->link,
 				'assets' => $assetArr,
@@ -134,50 +135,61 @@ include('layout/header.php');
 				<input type="text" class="form-control" name="slide-link" placeholder="请输入链接地址" value="<?= $update && $firstSlide->link ? $firstSlide->link : '' ?>"/>
 			</div>
 			<br/>
+			<div class="tips">
+				说明：如果填写“模糊图片”，将会使得页面获得雾面擦除效果。用户需擦拭屏幕才能看到内容。“模糊图片”用于显示擦拭前的视觉效果。
+			</div>
 			<div class="form-group">
+				<label for="slide-background">模糊图片</label>
+				<input type="file" name="slide-blurBackground">
+				<button id="slide-blurBackground-upload" class="btn btn-default btn-sm">上传</button>
+				<p class="slide-blurBg help-block"><?= $update && $firstSlide->blurBackground ? '已上传本页背景：'.$firstSlide->blurBackground : '' ?></p>
+			</div>
+			<div class="form-group" style="display: block;">
 				<button type="button" class="btn btn-xs btn-danger delete-slide">删除当前页面</button>
 			</div>
 			<hr/>
-			<ul class="nav nav-pills nav-assets">
-				<li class="active" data-asset-id="1"><a>A1</a></li>
-				<?php
-				if ($update) {
-					for ($i = 2; $i <= count($firstSlide->assets()); $i++) {
-						echo '<li data-asset-id="'. $i .'"><a>A'. $i .'</a></li>';
-					}
-				} ?>
-				<li class="add"><a id="add-asset">+</a></li>
-			</ul>
-			<div class="form-group">
-				<label for="asset-src">资源图片</label>
-				<input type="file" name="asset-src">
-				<button id="asset-upload" class="btn btn-default btn-sm">上传</button>
-				<p class="asset help-block"><?= $update && $firstAsset->src ? '已上传资源图片：'.$firstAsset->src : '' ?></p>
-			</div>
-			<div class="form-group">
-				<label for="asset-width">宽度</label>
-				<input type="text" class="form-control" name="asset-width" placeholder="请输入宽度" value="<?= $update && $firstAsset->width ? $firstAsset->width : '' ?>">
-			</div>
-			<div class="form-group">
-				<label for="asset-left">左边距</label>
-				<input type="text" class="form-control" name="asset-left" placeholder="请输入左边距" value="<?= $update && $firstAsset->left ? $firstAsset->left : '' ?>">
-			</div>
-			<hr/>
-			<div class="form-group">
-				<label for="asset-height">高度</label>
-				<input type="text" class="form-control" name="asset-height" placeholder="请输入高度" value="<?= $update && $firstAsset->height ? $firstAsset->height : '' ?>">
-			</div>
-			<div class="form-group">
-				<label for="asset-right">上边距</label>
-				<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距" value="<?= $update && $firstAsset->top ? $firstAsset->top : '' ?>">
-			</div>
-			<hr/>
-			<div class="form-group">
-				<label for="asset-order">动画顺序（填0则无动画）</label>
-				<input type="text" class="form-control" name="asset-order" placeholder="请输入动画顺序" value="<?= $update && $firstAsset->order ? $firstAsset->order : '' ?>">
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-xs btn-danger delete-asset">删除当前资源图片</button>
+			<div class="resource">
+				<ul class="nav nav-pills nav-assets">
+					<li class="active" data-asset-id="1"><a>A1</a></li>
+					<?php
+					if ($update) {
+						for ($i = 2; $i <= count($firstSlide->assets()); $i++) {
+							echo '<li data-asset-id="'. $i .'"><a>A'. $i .'</a></li>';
+						}
+					} ?>
+					<li class="add"><a id="add-asset">+</a></li>
+				</ul>
+				<div class="form-group">
+					<label for="asset-src">资源图片</label>
+					<input type="file" name="asset-src">
+					<button id="asset-upload" class="btn btn-default btn-sm">上传</button>
+					<p class="asset help-block"><?= $update && $firstAsset->src ? '已上传资源图片：'.$firstAsset->src : '' ?></p>
+				</div>
+				<div class="form-group">
+					<label for="asset-width">宽度</label>
+					<input type="text" class="form-control" name="asset-width" placeholder="请输入宽度" value="<?= $update && $firstAsset->width ? $firstAsset->width : '' ?>">
+				</div>
+				<div class="form-group">
+					<label for="asset-left">左边距</label>
+					<input type="text" class="form-control" name="asset-left" placeholder="请输入左边距" value="<?= $update && $firstAsset->left ? $firstAsset->left : '' ?>">
+				</div>
+				<hr/>
+				<div class="form-group">
+					<label for="asset-height">高度</label>
+					<input type="text" class="form-control" name="asset-height" placeholder="请输入高度" value="<?= $update && $firstAsset->height ? $firstAsset->height : '' ?>">
+				</div>
+				<div class="form-group">
+					<label for="asset-right">上边距</label>
+					<input type="text" class="form-control" name="asset-top" placeholder="请输入上边距" value="<?= $update && $firstAsset->top ? $firstAsset->top : '' ?>">
+				</div>
+				<hr/>
+				<div class="form-group">
+					<label for="asset-order">动画顺序（填0则无动画）</label>
+					<input type="text" class="form-control" name="asset-order" placeholder="请输入动画顺序" value="<?= $update && $firstAsset->order ? $firstAsset->order : '' ?>">
+				</div>
+				<div class="form-group" style="display: block;">
+					<button type="button" class="btn btn-xs btn-danger delete-asset">删除当前资源图片</button>
+				</div>
 			</div>
 		</div>
 		<div class="btn-group final">
@@ -192,7 +204,7 @@ include('layout/header.php');
 <?php
 include('layout/footer.php');
 include('layout/script.php'); ?>
-<script src="assets/javascript/create.js?v=1.3.0"></script>
+<script src="assets/javascript/create.js?v=1.4.0"></script>
 <?php
 if ($update) { ?>
 <script>
