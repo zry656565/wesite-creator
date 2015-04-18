@@ -66,13 +66,13 @@ $(function(){
                 return false;
             }
             $blurBg.attr('data-hide', true);
-            $canvas.show();
             var ctx = $canvas[0].getContext('2d'),
                 img = new Image();
 
             img.src = $blurBg.attr('src');
             img.onload = function(){
                 ctx.drawImage(img, 0, 0, w, h);
+                $canvas.show();
                 $('.blur-bg[data-id="'+ id +'"]').hide();
                 function clearCircle(x, y) {
                     ctx.save();
