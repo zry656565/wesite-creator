@@ -24,13 +24,13 @@ if (!$page->id) {
 	<meta name="format-detection" content="telephone=no">
 	<meta name="description" content="<?= $page->description ?>">
 	<link rel="stylesheet" href="../assets/library/idangerous.swiper/idangerous.swiper.css">
-	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.1.0">
+	<link rel="stylesheet" href="../assets/stylesheet/show.css?v=1.2.0">
 	<!-- script -->
 	<script src="../assets/library/jquery/jquery-1.11.2.min.js"></script>
 	<script src="../assets/library/velocity/velocity.min.js"></script>
 	<script src="../assets/library/idangerous.swiper/idangerous.swiper.js"></script>
 	<script src="../assets/library/spin/spin.js"></script>
-	<script src="../assets/javascript/wesite.js?v=1.2.0"></script>
+	<script src="../assets/javascript/wesite.js?v=1.3.0"></script>
 
 	<!-- 百度统计 -->
 	<script>
@@ -53,6 +53,8 @@ if (!$page->id) {
 	<source src="<?= $page->bgm ?>" type="audio/mpeg">
 </audio>
 
+<canvas class="blur"></canvas>
+
 <div class="swiper-container">
 	<div class="swiper-wrapper">
 		<?php
@@ -60,6 +62,13 @@ if (!$page->id) {
 		foreach ($page->slides() as $slide) { ?>
 			<div class="swiper-slide" data-id="<?= $id ?>">
 				<?php if (isset($slide->link) && $slide->link !== '') echo '<a href="'. $slide->link .'">'; ?>
+				<?php
+				//雾面效果
+				if (isset($slide->blurBackground) && $slide->blurBackground !== '') { ?>
+					<img class="blur-bg" data-id="<?= $id ?>" src="<?= $slide->blurBackground ?>"/>
+				<?php
+				}
+				?>
 				<img class="music-icon" src="//women-image.b0.upaiyun.com/assets/music2.png"/>
 				<img class="background" src="<?= $slide->background ? $slide->background : $page->bg ?>" />
 				<?php

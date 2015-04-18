@@ -54,6 +54,43 @@ $(function(){
             animate();
         }
     };
+    var h = $(window).height(),
+        w = $(window).width(),
+        $canvas = $('.blur')
+            .attr('width', w)
+            .attr('height', h),
+
+        wiper = function(id) {
+            var $blurBg = $('.blur-bg[data-id="'+ id +'"]');
+            if ($blurBg.length === 0) {
+                return false;
+            }
+            var ctx = $canvas[0].getContext('2d'),
+                img = new Image();
+
+            img.src = $blurBg.attr('src');
+            img.onload = function(){
+                ctx.drawImage(img, 0, 0, w, h);
+                $('.blur-bg[data-id="'+ id +'"]').hide();
+                function clearCircle(x, y) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(x, y, 20, 0, 2*Math.PI, true);
+                    ctx.clip();
+                    ctx.clearRect(0, 0, w, h);
+                    ctx.restore();
+                }
+                $canvas.bind('touchmove', function(e) {
+                    e.preventDefault();
+                    var event = e.originalEvent;
+                    clearCircle(event.pageX, event.pageY);
+                });
+            };
+            return true;
+        },
+        changedPage = function(id) {
+            if (!wiper(id)) animates(id);
+        };
 
     var mySwiper = $('.swiper-container').swiper({
         mode:'vertical',
@@ -83,10 +120,10 @@ $(function(){
                     music.pause();
                 }
             });
-            animates(1);
+            changedPage(1);
         },
         onSlideChangeEnd: function(swiper) {
-            animates(swiper.activeIndex);
+            changedPage(swiper.activeIndex);
         }
     });
 });
