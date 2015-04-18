@@ -80,6 +80,19 @@ $(function(){
                     ctx.clearRect(0, 0, w, h);
                     ctx.restore();
                 }
+
+                var start,
+                    duration = 0;
+                $canvas.bind('touchstart', function(e){
+                    start = Date.now();
+                });
+                $canvas.bind('touchend', function(e) {
+                    duration += Date.now() - start;
+                    if (duration > 1500) {
+                        $canvas.unbind('touchstart touchmove touchend');
+                        $canvas.fadeOut();
+                    }
+                });
                 $canvas.bind('touchmove', function(e) {
                     e.preventDefault();
                     var event = e.originalEvent;
